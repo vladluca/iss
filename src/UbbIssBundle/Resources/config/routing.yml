@@ -1,0 +1,3 @@
+ubb_iss_homepage:
+    path:     /
+    defaults: { _controller: UbbIssBundle:Default:index }
