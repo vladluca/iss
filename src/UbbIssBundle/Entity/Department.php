@@ -71,26 +71,26 @@ class Department
     }
 
     /**
-     * Add teachers
+     * Add teacher
      *
-     * @param \UbbIssBundle\Entity\Teacher $teachers
+     * @param \UbbIssBundle\Entity\Teacher $teacher
      * @return Department
      */
-    public function addTeacher(\UbbIssBundle\Entity\Teacher $teachers)
+    public function addTeacher(\UbbIssBundle\Entity\Teacher $teacher)
     {
-        $this->teachers[] = $teachers;
+        $this->teachers[] = $teacher;
 
         return $this;
     }
 
     /**
-     * Remove teachers
+     * Remove teacher
      *
-     * @param \UbbIssBundle\Entity\Teacher $teachers
+     * @param \UbbIssBundle\Entity\Teacher $teacher
      */
-    public function removeTeacher(\UbbIssBundle\Entity\Teacher $teachers)
+    public function removeTeacher(\UbbIssBundle\Entity\Teacher $teacher)
     {
-        $this->teachers->removeElement($teachers);
+        $this->teachers->removeElement($teacher);
     }
 
     /**

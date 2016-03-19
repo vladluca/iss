@@ -171,26 +171,26 @@ class Student
     }
 
     /**
-     * Add evaluations
+     * Add evaluation
      *
-     * @param \UbbIssBundle\Entity\Evaluation $evaluations
+     * @param \UbbIssBundle\Entity\Evaluation $evaluation
      * @return Student
      */
-    public function addEvaluation(\UbbIssBundle\Entity\Evaluation $evaluations)
+    public function addEvaluation(\UbbIssBundle\Entity\Evaluation $evaluation)
     {
-        $this->evaluations[] = $evaluations;
+        $this->evaluations[] = $evaluation;
 
         return $this;
     }
 
     /**
-     * Remove evaluations
+     * Remove evaluation
      *
-     * @param \UbbIssBundle\Entity\Evaluation $evaluations
+     * @param \UbbIssBundle\Entity\Evaluation $evaluation
      */
-    public function removeEvaluation(\UbbIssBundle\Entity\Evaluation $evaluations)
+    public function removeEvaluation(\UbbIssBundle\Entity\Evaluation $evaluation)
     {
-        $this->evaluations->removeElement($evaluations);
+        $this->evaluations->removeElement($evaluation);
     }
 
     /**
@@ -204,26 +204,26 @@ class Student
     }
 
     /**
-     * Add studycontracts
+     * Add studycontract
      *
-     * @param \UbbIssBundle\Entity\Studycontract $studycontracts
+     * @param \UbbIssBundle\Entity\Studycontract $studycontract
      * @return Student
      */
-    public function addStudycontract(\UbbIssBundle\Entity\Studycontract $studycontracts)
+    public function addStudycontract(\UbbIssBundle\Entity\Studycontract $studycontract)
     {
-        $this->studycontracts[] = $studycontracts;
+        $this->studycontracts[] = $studycontract;
 
         return $this;
     }
 
     /**
-     * Remove studycontracts
+     * Remove studycontract
      *
-     * @param \UbbIssBundle\Entity\Studycontract $studycontracts
+     * @param \UbbIssBundle\Entity\Studycontract $studycontract
      */
-    public function removeStudycontract(\UbbIssBundle\Entity\Studycontract $studycontracts)
+    public function removeStudycontract(\UbbIssBundle\Entity\Studycontract $studycontract)
     {
-        $this->studycontracts->removeElement($studycontracts);
+        $this->studycontracts->removeElement($studycontract);
     }
 
     /**

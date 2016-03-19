@@ -94,26 +94,26 @@ class Studycontract
     }
 
     /**
-     * Add subjects
+     * Add subject
      *
-     * @param \UbbIssBundle\Entity\Subject $subjects
+     * @param \UbbIssBundle\Entity\Subject $subject
      * @return Studycontract
      */
-    public function addSubject(\UbbIssBundle\Entity\Subject $subjects)
+    public function addSubject(\UbbIssBundle\Entity\Subject $subject)
     {
-        $this->subjects[] = $subjects;
+        $this->subjects[] = $subject;
 
         return $this;
     }
 
     /**
-     * Remove subjects
+     * Remove subject
      *
-     * @param \UbbIssBundle\Entity\Subject $subjects
+     * @param \UbbIssBundle\Entity\Subject $subject
      */
-    public function removeSubject(\UbbIssBundle\Entity\Subject $subjects)
+    public function removeSubject(\UbbIssBundle\Entity\Subject $subject)
     {
-        $this->subjects->removeElement($subjects);
+        $this->subjects->removeElement($subject);
     }
 
     /**

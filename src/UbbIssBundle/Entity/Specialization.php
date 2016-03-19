@@ -83,26 +83,26 @@ class Specialization
     }
 
     /**
-     * Add students
+     * Add student
      *
-     * @param \UbbIssBundle\Entity\Student $students
+     * @param \UbbIssBundle\Entity\Student $student
      * @return Specialization
      */
-    public function addStudent(\UbbIssBundle\Entity\Student $students)
+    public function addStudent(\UbbIssBundle\Entity\Student $student)
     {
-        $this->students[] = $students;
+        $this->students[] = $student;
 
         return $this;
     }
 
     /**
-     * Remove students
+     * Remove student
      *
-     * @param \UbbIssBundle\Entity\Student $students
+     * @param \UbbIssBundle\Entity\Student $student
      */
-    public function removeStudent(\UbbIssBundle\Entity\Student $students)
+    public function removeStudent(\UbbIssBundle\Entity\Student $student)
     {
-        $this->students->removeElement($students);
+        $this->students->removeElement($student);
     }
 
     /**
@@ -116,26 +116,26 @@ class Specialization
     }
 
     /**
-     * Add subjects
+     * Add subject
      *
-     * @param \UbbIssBundle\Entity\Subject $subjects
+     * @param \UbbIssBundle\Entity\Subject $subject
      * @return Specialization
      */
-    public function addSubject(\UbbIssBundle\Entity\Subject $subjects)
+    public function addSubject(\UbbIssBundle\Entity\Subject $subject)
     {
-        $this->subjects[] = $subjects;
+        $this->subjects[] = $subject;
 
         return $this;
     }
 
     /**
-     * Remove subjects
+     * Remove subject
      *
-     * @param \UbbIssBundle\Entity\Subject $subjects
+     * @param \UbbIssBundle\Entity\Subject $subject
      */
-    public function removeSubject(\UbbIssBundle\Entity\Subject $subjects)
+    public function removeSubject(\UbbIssBundle\Entity\Subject $subject)
     {
-        $this->subjects->removeElement($subjects);
+        $this->subjects->removeElement($subject);
     }
 
     /**
@@ -172,26 +172,26 @@ class Specialization
     }
 
     /**
-     * Add studylines
+     * Add studyline
      *
-     * @param \UbbIssBundle\Entity\Studyline $studylines
+     * @param \UbbIssBundle\Entity\Studyline $studyline
      * @return Specialization
      */
-    public function addStudyline(\UbbIssBundle\Entity\Studyline $studylines)
+    public function addStudyline(\UbbIssBundle\Entity\Studyline $studyline)
     {
-        $this->studylines[] = $studylines;
+        $this->studylines[] = $studyline;
 
         return $this;
     }
 
     /**
-     * Remove studylines
+     * Remove studyline
      *
-     * @param \UbbIssBundle\Entity\Studyline $studylines
+     * @param \UbbIssBundle\Entity\Studyline $studyline
      */
-    public function removeStudyline(\UbbIssBundle\Entity\Studyline $studylines)
+    public function removeStudyline(\UbbIssBundle\Entity\Studyline $studyline)
     {
-        $this->studylines->removeElement($studylines);
+        $this->studylines->removeElement($studyline);
     }
 
     /**

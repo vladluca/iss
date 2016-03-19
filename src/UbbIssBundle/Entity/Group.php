@@ -94,26 +94,26 @@ class Group
     }
 
     /**
-     * Add students
+     * Add student
      *
-     * @param \UbbIssBundle\Entity\Student $students
+     * @param \UbbIssBundle\Entity\Student $student
      * @return Group
      */
-    public function addStudent(\UbbIssBundle\Entity\Student $students)
+    public function addStudent(\UbbIssBundle\Entity\Student $student)
     {
-        $this->students[] = $students;
+        $this->students[] = $student;
 
         return $this;
     }
 
     /**
-     * Remove students
+     * Remove student
      *
-     * @param \UbbIssBundle\Entity\Student $students
+     * @param \UbbIssBundle\Entity\Student $student
      */
-    public function removeStudent(\UbbIssBundle\Entity\Student $students)
+    public function removeStudent(\UbbIssBundle\Entity\Student $student)
     {
-        $this->students->removeElement($students);
+        $this->students->removeElement($student);
     }
 
     /**

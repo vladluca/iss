@@ -72,26 +72,26 @@ class Faculty
     }
 
     /**
-     * Add departments
+     * Add department
      *
-     * @param \UbbIssBundle\Entity\Department $departments
+     * @param \UbbIssBundle\Entity\Department $department
      * @return Faculty
      */
-    public function addDepartment(\UbbIssBundle\Entity\Department $departments)
+    public function addDepartment(\UbbIssBundle\Entity\Department $department)
     {
-        $this->departments[] = $departments;
+        $this->departments[] = $department;
 
         return $this;
     }
 
     /**
-     * Remove departments
+     * Remove department
      *
-     * @param \UbbIssBundle\Entity\Department $departments
+     * @param \UbbIssBundle\Entity\Department $department
      */
-    public function removeDepartment(\UbbIssBundle\Entity\Department $departments)
+    public function removeDepartment(\UbbIssBundle\Entity\Department $department)
     {
-        $this->departments->removeElement($departments);
+        $this->departments->removeElement($department);
     }
 
     /**
@@ -105,26 +105,26 @@ class Faculty
     }
 
     /**
-     * Add specializations
+     * Add specialization
      *
-     * @param \UbbIssBundle\Entity\Specialization $specializations
+     * @param \UbbIssBundle\Entity\Specialization $specialization
      * @return Faculty
      */
-    public function addSpecialization(\UbbIssBundle\Entity\Specialization $specializations)
+    public function addSpecialization(\UbbIssBundle\Entity\Specialization $specialization)
     {
-        $this->specializations[] = $specializations;
+        $this->specializations[] = $specialization;
 
         return $this;
     }
 
     /**
-     * Remove specializations
+     * Remove specialization
      *
-     * @param \UbbIssBundle\Entity\Specialization $specializations
+     * @param \UbbIssBundle\Entity\Specialization $specialization
      */
-    public function removeSpecialization(\UbbIssBundle\Entity\Specialization $specializations)
+    public function removeSpecialization(\UbbIssBundle\Entity\Specialization $specialization)
     {
-        $this->specializations->removeElement($specializations);
+        $this->specializations->removeElement($specialization);
     }
 
     /**

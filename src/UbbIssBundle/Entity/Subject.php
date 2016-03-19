@@ -144,26 +144,26 @@ class Subject
     }
 
     /**
-     * Add activities
+     * Add activity
      *
-     * @param \UbbIssBundle\Entity\Activity $activities
+     * @param \UbbIssBundle\Entity\Activity $activity
      * @return Subject
      */
-    public function addActivity(\UbbIssBundle\Entity\Activity $activities)
+    public function addActivity(\UbbIssBundle\Entity\Activity $activity)
     {
-        $this->activities[] = $activities;
+        $this->activities[] = $activity;
 
         return $this;
     }
 
     /**
-     * Remove activities
+     * Remove activity
      *
-     * @param \UbbIssBundle\Entity\Activity $activities
+     * @param \UbbIssBundle\Entity\Activity $activity
      */
-    public function removeActivity(\UbbIssBundle\Entity\Activity $activities)
+    public function removeActivity(\UbbIssBundle\Entity\Activity $activity)
     {
-        $this->activities->removeElement($activities);
+        $this->activities->removeElement($activity);
     }
 
     /**
@@ -177,26 +177,26 @@ class Subject
     }
 
     /**
-     * Add evaluations
+     * Add evaluation
      *
-     * @param \UbbIssBundle\Entity\Evaluation $evaluations
+     * @param \UbbIssBundle\Entity\Evaluation $evaluation
      * @return Subject
      */
-    public function addEvaluation(\UbbIssBundle\Entity\Evaluation $evaluations)
+    public function addEvaluation(\UbbIssBundle\Entity\Evaluation $evaluation)
     {
-        $this->evaluations[] = $evaluations;
+        $this->evaluations[] = $evaluation;
 
         return $this;
     }
 
     /**
-     * Remove evaluations
+     * Remove evaluation
      *
-     * @param \UbbIssBundle\Entity\Evaluation $evaluations
+     * @param \UbbIssBundle\Entity\Evaluation $evaluation
      */
-    public function removeEvaluation(\UbbIssBundle\Entity\Evaluation $evaluations)
+    public function removeEvaluation(\UbbIssBundle\Entity\Evaluation $evaluation)
     {
-        $this->evaluations->removeElement($evaluations);
+        $this->evaluations->removeElement($evaluation);
     }
 
     /**
@@ -256,26 +256,26 @@ class Subject
     }
 
     /**
-     * Add studycontracts
+     * Add studycontract
      *
-     * @param \UbbIssBundle\Entity\Studycontract $studycontracts
+     * @param \UbbIssBundle\Entity\Studycontract $studycontract
      * @return Subject
      */
-    public function addStudycontract(\UbbIssBundle\Entity\Studycontract $studycontracts)
+    public function addStudycontract(\UbbIssBundle\Entity\Studycontract $studycontract)
     {
-        $this->studycontracts[] = $studycontracts;
+        $this->studycontracts[] = $studycontract;
 
         return $this;
     }
 
     /**
-     * Remove studycontracts
+     * Remove studycontract
      *
-     * @param \UbbIssBundle\Entity\Studycontract $studycontracts
+     * @param \UbbIssBundle\Entity\Studycontract $studycontract
      */
-    public function removeStudycontract(\UbbIssBundle\Entity\Studycontract $studycontracts)
+    public function removeStudycontract(\UbbIssBundle\Entity\Studycontract $studycontract)
     {
-        $this->studycontracts->removeElement($studycontracts);
+        $this->studycontracts->removeElement($studycontract);
     }
 
     /**

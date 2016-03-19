@@ -127,26 +127,26 @@ class Teacher
     }
 
     /**
-     * Add activities
+     * Add activity
      *
-     * @param \UbbIssBundle\Entity\Activity $activities
+     * @param \UbbIssBundle\Entity\Activity $activity
      * @return Teacher
      */
-    public function addActivity(\UbbIssBundle\Entity\Activity $activities)
+    public function addActivity(\UbbIssBundle\Entity\Activity $activity)
     {
-        $this->activities[] = $activities;
+        $this->activities[] = $activity;
 
         return $this;
     }
 
     /**
-     * Remove activities
+     * Remove activity
      *
-     * @param \UbbIssBundle\Entity\Activity $activities
+     * @param \UbbIssBundle\Entity\Activity $activity
      */
-    public function removeActivity(\UbbIssBundle\Entity\Activity $activities)
+    public function removeActivity(\UbbIssBundle\Entity\Activity $activity)
     {
-        $this->activities->removeElement($activities);
+        $this->activities->removeElement($activity);
     }
 
     /**
