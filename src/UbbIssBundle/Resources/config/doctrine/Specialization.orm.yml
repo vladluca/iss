@@ -1,0 +1,30 @@
+UbbIssBundle\Entity\Specialization:
+    type: entity
+    table: specializations
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
+            unique: true
+    manyToOne:
+        faculty:
+            targetEntity: Faculty
+            inversedBy: specializations
+            joinColumn:
+                name: faculty_id
+                referencedColumnName: id
+    oneToMany:
+        students:
+            targetEntity: Student
+            mappedBy: specialization
+        subjects:
+            targetEntity: Subject
+            mappedBy: specialization
+    manyToMany:
+        studylines:
+            targetEntity: Studyline
+            mappedBy: specializations

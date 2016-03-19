@@ -1,0 +1,48 @@
+UbbIssBundle\Entity\Student:
+    type: entity
+    table: students
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
+        email:
+            type: string
+            length: 255
+            unique: true
+        address:
+            type: string
+            length: 255
+        phoneNumber:
+            type: string
+            length: 10
+            unique: true
+    manyToOne:
+        specialization:
+            targetEntity: Specialization
+            inversedBy: students
+            joinColumn:
+                name: specialization_id
+                referencedColumnName: id
+        studyline:
+            targetEntity: Studyline
+            inversedBy: students
+            joinColumn:
+                name: studyline_id
+                referencedColumnName: id
+        group:
+            targetEntity: Group
+            inversedBy: students
+            joinColumn:
+                name: group_id
+                referencedColumnName: id
+    oneToMany:
+        evaluations:
+            targetEntity: Evaluation
+            mappedBy: student
+        studycontracts:
+            targetEntity: Studycontract
+            mappedBy: student

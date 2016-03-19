@@ -1,0 +1,19 @@
+UbbIssBundle\Entity\Faculty:
+    type: entity
+    table: faculties
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
+            unique: true
+    oneToMany:
+        departments:
+            targetEntity: Department
+            mappedBy: faculty
+        specializations:
+            targetEntity: Specialization
+            mappedBy: faculty

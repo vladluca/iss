@@ -1,0 +1,23 @@
+UbbIssBundle\Entity\Department:
+    type: entity
+    table: departments
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
+            unique: true
+    oneToMany:
+        teachers:
+            targetEntity: Teacher
+            mappedBy: department
+    manyToOne:
+        faculty:
+            targetEntity: Faculty
+            inversedBy: departments
+            joinColumn:
+                name: faculty_id
+                referencedColumnName: id

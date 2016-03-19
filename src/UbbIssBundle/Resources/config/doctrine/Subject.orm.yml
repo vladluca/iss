@@ -1,0 +1,39 @@
+UbbIssBundle\Entity\Subject:
+    type: entity
+    table: subjects
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
+        credits:
+            type: integer
+        semester:
+            type: integer
+    manyToOne:
+        specialization:
+            targetEntity: Specialization
+            inversedBy: subjects
+            joinColumn:
+                name: specialization_id
+                referencedColumnName: id
+        studyline:
+            targetEntity: Studyline
+            inversedBy: subjects
+            joinColumn:
+                name: studyline_id
+                referencedColumnName: id
+    oneToMany:
+        activities:
+            targetEntity: Activity
+            mappedBy: subject
+        evaluations:
+            targetEntity: Evaluation
+            mappedBy: subject
+    manyToMany:
+        studycontracts:
+            targetEntity: Studycontract
+            mappedBy: subjects

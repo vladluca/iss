@@ -1,0 +1,18 @@
+UbbIssBundle\Entity\Group:
+    type: entity
+    table: groups
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
+            unique: true
+        studyYear:
+            type: integer
+    oneToMany:
+        students:
+            targetEntity: Student
+            mappedBy: group
