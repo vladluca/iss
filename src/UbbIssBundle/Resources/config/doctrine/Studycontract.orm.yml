@@ -1,0 +1,29 @@
+UbbIssBundle\Entity\Studycontract:
+    type: entity
+    table: study_contracts
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        semester:
+            type: integer
+    manyToOne:
+        student:
+            targetEntity: Student
+            inversedBy: studycontracts
+            joinColumn:
+                name: student_id
+                referencedColumnName: id
+    manyToMany:
+        subjects:
+            targetEntity: Subject
+            inversedBy: studycontracts
+            joinTable:
+                name: subjects_contracts
+                joinColumns:
+                    studycontract_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    subject_id:
+                        referencedColumnName: id

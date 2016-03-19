@@ -1,0 +1,25 @@
+UbbIssBundle\Entity\Evaluation:
+    type: entity
+    table: evaluations
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        sessionGrade:
+            type: integer
+        retakeSessionGrade:
+            type: integer
+    manyToOne:
+        subject:
+            targetEntity: Subject
+            inversedBy: evaluations
+            joinColumn:
+                name: subject_id
+                referencedColumnName: id
+        student:
+            targetEntity: Student
+            inversedBy: evaluations
+            joinColumn:
+                name: student_id
+                referencedColumnName: id
