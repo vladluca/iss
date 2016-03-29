@@ -2,6 +2,10 @@ ubb_iss:
     resource: "@UbbIssBundle/Resources/config/routing.yml"
     prefix:   /
 
+login:
+    path:     /login
+    defaults: { _controller: UbbIssBundle:Security:login }
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
