@@ -19,7 +19,6 @@ class DefaultController extends Controller
         $authenticatedUser= $this->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
         $student = $authenticatedUser->getStudent();
-        var_dump($student->getName());
         $Seval = $student->getEvaluations();
 
         return $this->render('UbbIssBundle:Student:showGrades.html.twig',
