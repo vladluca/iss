@@ -1,0 +1,17 @@
+{% extends "UbbIssBundle:layout.html.twig" %}
+{% block content %}
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>Grade</td>
+            <td>Retake Grade</td>
+        </tr>
+        {% for grade in grades %}
+            <tr>
+                <td>{{ grade.getSubject().getName() }}</td>
+                <td>{{ grade.getSessionGrade() }}</td>
+                <td>{{ grade.getRetakeSessionGrade() }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
