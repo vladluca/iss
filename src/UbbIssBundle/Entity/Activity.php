@@ -136,4 +136,20 @@ class Activity
     {
         return $this->subject;
     }
+
+    /**
+     * @return array
+     */
+    public static function getTypes()
+    {
+        return array('Curs' => 'Curs', 'Seminar' => 'Seminar', 'Laborator' => 'Laborator');
+    }
+
+    /**
+     * @return array
+     */
+    public static function getTypeValues()
+    {
+        return array_keys(self::getRanks());
+    }
 }

@@ -136,4 +136,8 @@ class Faculty
     {
         return $this->specializations;
     }
+
+    public function __toString() {
+        return $this->name;
+    }
 }

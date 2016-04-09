@@ -125,4 +125,8 @@ class Department
     {
         return $this->faculty;
     }
+
+    public function __toString() {
+        return $this->name;
+    }
 }
