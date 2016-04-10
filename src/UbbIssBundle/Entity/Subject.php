@@ -287,4 +287,8 @@ class Subject
     {
         return $this->studycontracts;
     }
+
+    public function __toString() {
+        return $this->name;
+    }
 }

@@ -203,4 +203,8 @@ class Specialization
     {
         return $this->studylines;
     }
+
+    public function __toString() {
+        return $this->name;
+    }
 }

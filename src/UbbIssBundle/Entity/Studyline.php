@@ -175,4 +175,8 @@ class Studyline
     {
         return $this->specializations;
     }
+
+    public function __toString() {
+        return $this->language;
+    }
 }
