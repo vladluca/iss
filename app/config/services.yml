@@ -7,3 +7,74 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    admin.faculty:
+        class: UbbIssBundle\Admin\FacultyAdmin
+        arguments: [~, UbbIssBundle\Entity\Faculty, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Faculties }
+
+    admin.specialization:
+        class: UbbIssBundle\Admin\SpecializationAdmin
+        arguments: [~, UbbIssBundle\Entity\Specialization, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Specializations }
+
+    admin.studyline:
+        class: UbbIssBundle\Admin\StudylineAdmin
+        arguments: [~, UbbIssBundle\Entity\Studyline, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Studylines }
+
+    admin.department:
+        class: UbbIssBundle\Admin\DepartmentAdmin
+        arguments: [~, UbbIssBundle\Entity\Department, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Departments }
+
+    admin.teacher:
+        class: UbbIssBundle\Admin\TeacherAdmin
+        arguments: [~, UbbIssBundle\Entity\Teacher, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Teachers }
+
+    admin.subject:
+        class: UbbIssBundle\Admin\SubjectAdmin
+        arguments: [~, UbbIssBundle\Entity\Subject, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Subjects }
+
+    admin.activity:
+        class: UbbIssBundle\Admin\ActivityAdmin
+        arguments: [~, UbbIssBundle\Entity\Activity, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Activities }
+
+    admin.group:
+        class: UbbIssBundle\Admin\GroupAdmin
+        arguments: [~, UbbIssBundle\Entity\Group, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Groups }
+
+    admin.evaluation:
+        class: UbbIssBundle\Admin\EvaluationAdmin
+        arguments: [~, UbbIssBundle\Entity\Evaluation, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Evaluations }
+
+    admin.student:
+        class: UbbIssBundle\Admin\StudentAdmin
+        arguments: [~, UbbIssBundle\Entity\Student, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Students }
+
+    admin.studycontract:
+        class: UbbIssBundle\Admin\StudycontractAdmin
+        arguments: [~, UbbIssBundle\Entity\Studycontract, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Study Contracts" }
+
+    admin.user:
+        class: UbbIssBundle\Admin\UserAdmin
+        arguments: [~, UbbIssBundle\Entity\User, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Users" }

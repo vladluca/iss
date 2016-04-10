@@ -14,4 +14,17 @@ class DefaultController extends Controller
                 'username' => $authenticatedUser->getUsername()
         ));
     }
+
+    public function showGradesAction(){
+        $authenticatedUser= $this->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $student = $authenticatedUser->getStudent();
+        $Seval = $student->getEvaluations();
+
+        return $this->render('UbbIssBundle:Student:showGrades.html.twig',
+            array(
+                'username' => $authenticatedUser->getUsername(),
+                'grades' => $Seval
+            ));
+    }
 }

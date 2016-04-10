@@ -17,10 +17,23 @@ security:
                 login_path: /login
                 check_path: /login
                 default_target_path: ubb_iss_homepage
+            logout:
+                path:   /logout
+                target: /login
+
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
 
     providers:
+        chain_provider:
+            chain:
+                providers: [main, in_memory]
         main:
             entity: { class: UbbIssBundle\Entity\User, property: username }
-
+        in_memory:
+            memory:
+                users:
+                    admin: { password: admin, roles: 'ROLE_ADMIN' }
     encoders:
-            UbbIssBundle\Entity\User: plaintext
+        UbbIssBundle\Entity\User: plaintext
+        Symfony\Component\Security\Core\User\User: plaintext

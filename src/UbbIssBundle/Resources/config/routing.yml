@@ -1,3 +1,7 @@
 ubb_iss_homepage:
     path:     /
     defaults: { _controller: UbbIssBundle:Default:index }
+
+ubb_iss_show_student_grades:
+    path:     /grades
+    defaults: { _controller: UbbIssBundle:Default:showGrades }

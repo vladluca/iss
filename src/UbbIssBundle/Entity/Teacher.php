@@ -181,4 +181,24 @@ class Teacher
     {
         return $this->department;
     }
+
+    /**
+     * @return array
+     */
+    public static function getRanks()
+    {
+        return array('Asistent' => 'Asistent', 'Doctorand' => 'Doctorand', 'Lector Doctor' => 'Lector Doctor');
+    }
+
+    /**
+     * @return array
+     */
+    public static function getRankValues()
+    {
+        return array_keys(self::getRanks());
+    }
+
+    public function __toString() {
+        return $this->name;
+    }
 }
