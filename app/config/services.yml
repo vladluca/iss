@@ -54,3 +54,27 @@ services:
         arguments: [~, UbbIssBundle\Entity\Group, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Groups }
+
+    admin.evaluation:
+        class: UbbIssBundle\Admin\EvaluationAdmin
+        arguments: [~, UbbIssBundle\Entity\Evaluation, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Evaluations }
+
+    admin.student:
+        class: UbbIssBundle\Admin\StudentAdmin
+        arguments: [~, UbbIssBundle\Entity\Student, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Students }
+
+    admin.studycontract:
+        class: UbbIssBundle\Admin\StudycontractAdmin
+        arguments: [~, UbbIssBundle\Entity\Studycontract, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Study Contracts" }
+
+    admin.user:
+        class: UbbIssBundle\Admin\UserAdmin
+        arguments: [~, UbbIssBundle\Entity\User, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Users" }
