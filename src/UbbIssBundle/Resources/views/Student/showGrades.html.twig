@@ -1,11 +1,30 @@
 {% extends "UbbIssBundle:layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/ubbiss/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('bundles/ubbiss/css/custom.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('bundles/ubbiss/css/full.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+
 {% block content %}
-    <table>
-        <tr>
-            <td>Name</td>
-            <td>Grade</td>
-            <td>Retake Grade</td>
-        </tr>
+    <title>{% block title %}Grades{% endblock %}</title>
+    <br>
+    </br>
+    <div class="upText">Grades</div>
+    <br>
+    </br>
+    <table class="table table-bordered">
+        <thead class="backgr">
+            <tr>
+                <th><div class="tableText">Name</div></th>
+                <th><div class="tableText">Grade</div></th>
+                <th><div class="tableText">Retake Grade</div></th>
+            </tr>
+        </thead>
+
+        <tbody class="insideText">
         {% for grade in grades %}
             <tr>
                 <td>{{ grade.getSubject().getName() }}</td>
@@ -13,5 +32,6 @@
                 <td>{{ grade.getRetakeSessionGrade() }}</td>
             </tr>
         {% endfor %}
+        </tbody>
     </table>
 {% endblock %}
