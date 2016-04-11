@@ -1,0 +1,22 @@
+.table-bordered>tr:nth-child(odd){
+    background-color:red;
+}
+
+.upText{
+    text-align: center;
+    font-family: Comic Sans;
+    font-size: 35px;
+}
+
+.backgr {
+    background-color: #00acd6;
+}
+
+.tableText{
+    font-family: "Comic Sans";
+    text-align: center;
+}
+
+.insideText{
+    text-align: center;
+}
