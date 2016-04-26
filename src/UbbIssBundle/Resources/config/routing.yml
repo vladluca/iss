@@ -5,3 +5,11 @@ ubb_iss_homepage:
 ubb_iss_show_student_grades:
     path:     /grades
     defaults: { _controller: UbbIssBundle:Default:showGrades }
+
+ubb_iss_add_student_grades:
+    path:     /add_grades/{SubName}
+    defaults: { _controller: UbbIssBundle:Default:addGrades }
+
+ubb_iss_show_teacher_activities:
+    path:     /activities
+    defaults: { _controller: UbbIssBundle:Default:getActivities }
