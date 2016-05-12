@@ -2,7 +2,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="{{ asset('bundles/ubbiss/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('bundles/ubbiss/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" xmlns:5>
     <link href="{{ asset('bundles/ubbiss/css/custom.css') }}" type="text/css" rel="stylesheet">
     <link href="{{ asset('bundles/ubbiss/css/full.css') }}" type="text/css" rel="stylesheet">
 {% endblock %}
@@ -10,18 +10,48 @@
 
 {% block content %}
 
-{{ dump() }}
     <div>
         {{ subject.getName() }}
         {% if students|length >0 %}
-            <table>
-                {% for i in 0 .. students|length - 1 %}
-                    {% if(eval[i] != null) %}
-                        <tr><td>{{ students[i].getName() }}</td><td>{{ eval[i].getSessionGrade() }}</td><td>{{ eval[i].getRetakeSessionGrade() }}</td></tr>
-                    {% else %}
-                        <tr><td>{{ students[i].getName() }}</td><td>NOT SET</td><td>NOT SET</td></tr>
-                    {% endif %}
-                {% endfor %}
+            <table style="width:30%">
+                <tr>
+                    <thead class="backgr">
+                        <th><div class="tableText">Name</div></th>
+                        <th><div class="tableText">Grade</div></th>
+                        <th><div class="tableText">Retake Grade</div></th>
+                    </thead>
+                </tr>
+
+                <tr>
+                    <tbody class="insideText">
+                        {% for i in 0 .. students|length - 1 %}
+                            {% if(eval[i] != null) %}
+
+                                <tr valign="bottom">
+                                    {#action="{{ path('pitech_cooking_day_join_team') }}" method="post"#}
+                                    <div class="tableValue"></div>
+                                    <form >
+                                        New grade values: (between 1 and 10):
+                                        <input type="number" id="sessionGrade" min="1" max="10" />
+                                        <input type="number" id="retakeGrade" min="1" max="10"/>
+                                        <button type="submit" >Edit grades</button>
+                                    </form>
+                                </tr>
+                                <tr valign="top">
+                                    <td><div class="tableValue"></div>{{ students[i].getName() }}</td>
+                                    <td><div class="tableValue"></div>{{ eval[i].getSessionGrade() }}</td>
+                                    <td><div class="tableValue"></div>{{ eval[i].getRetakeSessionGrade() }}</td>
+                                </tr>
+
+                            {% else %}
+                                <tr>
+                                    <td>{{ students[i].getName() }}</td>
+                                    <td>NOT SET</td><td>NOT SET</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </tr>
             </table>
         {% else %}
             <p>NOTHING TO SHOW</p>

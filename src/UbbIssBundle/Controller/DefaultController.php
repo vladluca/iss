@@ -32,7 +32,7 @@ class DefaultController extends Controller
         /***
          *   Returns all the activities present under the current teacher
          */
-        $authenticatedUser= $this->get('security.context')->getToken()->getUser();
+        $authenticatedUser= $this->getUser();
         $activities = $authenticatedUser->getTeacher()->getActivities();
 
         return $this->render('UbbIssBundle:Teacher:getActivities.html.twig',
@@ -54,7 +54,7 @@ class DefaultController extends Controller
          *   If the student i has already a submitted evaluation, it will be the i-th evaluation
          *   If the student i does not have an evaluation, the i-th evaluation will contain null value
          */
-        $authenticatedUser= $this->get('security.context')->getToken()->getUser();
+        $authenticatedUser= $this->getUser();
         $activities = $authenticatedUser->getTeacher()->getActivities();
         $activity = null;
         foreach ($activities as $a) {

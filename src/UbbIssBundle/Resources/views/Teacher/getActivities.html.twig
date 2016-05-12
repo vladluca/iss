@@ -10,11 +10,10 @@
 
 {% block content %}
 
-    {{ dump() }}
     <div>
         <table>
             {% for act in activities %}
-                <tr><td><a href = "{{ path("ubb_iss_add_student_grades", {'SubName':act.getSubject().getName()}) }}">{{ act.getSubject().getName() }}</a></td></tr>
+                <tr><td><a href = "{{ path("ubb_iss_add_student_grades", {'SubName':act.getSubject()}) }}">{{ act.getType() }}</a></td></tr>
             {% endfor %}
         </table>
     </div>
