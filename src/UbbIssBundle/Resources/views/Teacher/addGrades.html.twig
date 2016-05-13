@@ -13,12 +13,13 @@
     <div>
         {{ subject.getName() }}
         {% if students|length >0 %}
-            <table style="width:30%">
+            <table style="width:40%">
                 <tr>
                     <thead class="backgr">
                         <th><div class="tableText">Name</div></th>
                         <th><div class="tableText">Grade</div></th>
                         <th><div class="tableText">Retake Grade</div></th>
+                        <th><div class="tableText">Editing: New grade values between 1 and 10</div></th>
                     </thead>
                 </tr>
 
@@ -26,21 +27,23 @@
                     <tbody class="insideText">
                         {% for i in 0 .. students|length - 1 %}
                             {% if(eval[i] != null) %}
-
-                                <tr valign="bottom">
-                                    {#action="{{ path('pitech_cooking_day_join_team') }}" method="post"#}
-                                    <div class="tableValue"></div>
-                                    <form >
-                                        New grade values: (between 1 and 10):
-                                        <input type="number" id="sessionGrade" min="1" max="10" />
-                                        <input type="number" id="retakeGrade" min="1" max="10"/>
-                                        <button type="submit" >Edit grades</button>
-                                    </form>
                                 </tr>
-                                <tr valign="top">
+                                <tr>
                                     <td><div class="tableValue"></div>{{ students[i].getName() }}</td>
                                     <td><div class="tableValue"></div>{{ eval[i].getSessionGrade() }}</td>
                                     <td><div class="tableValue"></div>{{ eval[i].getRetakeSessionGrade() }}</td>
+                                    <td>
+                                        <div class="tableValue"></div>
+                                        <form id ="editGrades" name="editGrades" action="{{ path('ubb_iss_edit_student_grades') }}" method="post">
+                                            {#passing a hidden parameter containing the evaluated subject's ID#}
+                                            <input name="subjectId" type="hidden" value={{ subject.getId() }} >
+                                            {#passing a hidden parameter containing the evaluated student's ID#}
+                                            <input name="studentId" type="hidden" value = {{ students[i].getId() }} />
+                                            {#passing new grade's values#}
+                                            <input name="sessionGrade" type="number" id="sessionGrade" min="1" max="10" />
+                                            <input name="retakeGrade" type="number" id="retakeGrade" min="1" max="10"/>
+                                            <button type="submit" >Edit grades</button>
+                                        </form></td>
                                 </tr>
 
                             {% else %}
