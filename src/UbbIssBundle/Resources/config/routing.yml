@@ -13,3 +13,7 @@ ubb_iss_add_student_grades:
 ubb_iss_show_teacher_activities:
     path:     /activities
     defaults: { _controller: UbbIssBundle:Default:getActivities }
+
+ubb_iss_edit_student_grades:
+    path:   /edit_grades
+    defaults: { _controller: UbbIssBundle:Default:editGrades}

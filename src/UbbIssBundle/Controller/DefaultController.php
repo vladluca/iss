@@ -3,12 +3,13 @@
 namespace UbbIssBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
     public function indexAction()
     {
-        $authenticatedUser= $this->get('security.context')->getToken()->getUser();
+        $authenticatedUser= $this->getUser();
         return $this->render('UbbIssBundle:Default:index.html.twig',
             array(
                 'username' => $authenticatedUser->getUsername()
@@ -16,7 +17,7 @@ class DefaultController extends Controller
     }
 
     public function showGradesAction(){
-        $authenticatedUser= $this->get('security.context')->getToken()->getUser();
+        $authenticatedUser= $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $student = $authenticatedUser->getStudent();
         $Seval = $student->getEvaluations();
@@ -32,7 +33,7 @@ class DefaultController extends Controller
         /***
          *   Returns all the activities present under the current teacher
          */
-        $authenticatedUser= $this->get('security.context')->getToken()->getUser();
+        $authenticatedUser= $this->getUser();
         $activities = $authenticatedUser->getTeacher()->getActivities();
 
         return $this->render('UbbIssBundle:Teacher:getActivities.html.twig',
@@ -54,7 +55,7 @@ class DefaultController extends Controller
          *   If the student i has already a submitted evaluation, it will be the i-th evaluation
          *   If the student i does not have an evaluation, the i-th evaluation will contain null value
          */
-        $authenticatedUser= $this->get('security.context')->getToken()->getUser();
+        $authenticatedUser= $this->getUser();
         $activities = $authenticatedUser->getTeacher()->getActivities();
         $activity = null;
         foreach ($activities as $a) {
@@ -74,15 +75,11 @@ class DefaultController extends Controller
         }
         $eval = $subject->getEvaluations();
         foreach ($stu as $s) {
-            $found = false;
             foreach ($eval as $e) {
                 if($s->getId() == $e->getStudent()->getId()){
                     array_push($ev, $e);
                     break;
                 }
-            }
-            if(!$found){
-                array_push($ev, null);
             }
         }
 
@@ -103,4 +100,52 @@ class DefaultController extends Controller
                 'eval' => $ev,
             ));
     }
+
+    public function editGradesAction(Request $request){
+
+        $newSgrade = $request->request->get('sessionGrade');
+        $newRgrade = $request->request->get('retakeGrade');
+
+        $subjectId = $request->request->get('subjectId');
+        $studentId = $request->request->get('studentId');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $sbj = $em->getRepository('UbbIssBundle:Subject')->find($subjectId);
+
+        $eval= $em->getRepository('UbbIssBundle:Evaluation')->findOneBy(array('subject'=> $subjectId, 'student'=>$studentId));
+
+//        var_dump($subjectId, $studentId, $eval->getRetakeSessionGrade());
+
+        $eval->setSessionGrade((int)$newSgrade);
+        $eval->setRetakeSessionGrade((int)$newRgrade);
+
+        $em->flush();
+
+
+
+        return $this->redirectToRoute('ubb_iss_add_student_grades',array('SubName'=>$sbj) );
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
