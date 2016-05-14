@@ -2,8 +2,10 @@
 
 namespace UbbIssBundle\Controller;
 
+use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use UbbIssBundle\Entity\Subject;
 
 class DefaultController extends Controller
 {
@@ -83,6 +85,7 @@ class DefaultController extends Controller
             }
         }
 
+
         return $this->render('UbbIssBundle:Teacher:addGrades.html.twig',
             array(
                 'username' => $authenticatedUser->getUsername(),
@@ -101,6 +104,36 @@ class DefaultController extends Controller
             ));
     }
 
+    public function editContractAction($contractId){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $contract = $em->getRepository('UbbIssBundle:Studycontract')
+            ->find((int)$contractId);
+
+        $addedSubjects = $contract->getSubjects();
+
+        $subjRepo = $em->getRepository('UbbIssBundle:Subject');
+        $availableSubj = $subjRepo->findBy(
+            array('semester' => $contract->getSemester())
+        );
+
+        $availables=[];
+        foreach($addedSubjects as $adds){
+            array_push($availables,$adds);
+        }
+
+        $result = array_diff($availableSubj,$availables);
+        $result2=array_values($result);
+
+        return $this->render('UbbIssBundle:Student:editStudyContracts.html.twig',
+            array(
+                'addedSubj' => $addedSubjects,
+                'availableSubj' => $result2,
+                'contractId' => $contractId
+            ));
+    }
+
     public function editGradesAction(Request $request){
 
         $newSgrade = $request->request->get('sessionGrade');
@@ -115,8 +148,6 @@ class DefaultController extends Controller
 
         $eval= $em->getRepository('UbbIssBundle:Evaluation')->findOneBy(array('subject'=> $subjectId, 'student'=>$studentId));
 
-//        var_dump($subjectId, $studentId, $eval->getRetakeSessionGrade());
-
         $eval->setSessionGrade((int)$newSgrade);
         $eval->setRetakeSessionGrade((int)$newRgrade);
 
@@ -126,6 +157,66 @@ class DefaultController extends Controller
 
         return $this->redirectToRoute('ubb_iss_add_student_grades',array('SubName'=>$sbj) );
     }
+
+    public function showContractsAction(){
+
+        $user = $this->getUser();
+        $student = $user->getStudent();
+        $studName = $student->getName();
+        $contracts = $student->getStudycontracts();
+
+        return $this->render('UbbIssBundle:Student:showStudyContracts.html.twig',
+            array(
+                'studName' => $studName,
+               'contracts' => $contracts
+            ));
+    }
+
+    public function addSubjectAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $subjectToAddId = $request->request->get('availableSubjectId');
+
+        $subjectToAdd = $em->getRepository('UbbIssBundle:Subject')
+            ->find((int)$subjectToAddId);
+
+        $contractId = $request->request->get('contractId');
+        $contract = $em->getRepository('UbbIssBundle:Studycontract')
+            ->find((int)$contractId);
+
+        $contract->addSubject($subjectToAdd);
+        $em->flush();
+
+        return $this->redirectToRoute('ubb_iss_edit_contract',
+            array(
+                'contractId' => $contractId
+            ));
+    }
+
+    public function removeSubjectAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $subjectToRemoveId = $request->request->get('addedSubjectId');
+
+        $subjectToRemove = $em->getRepository('UbbIssBundle:Subject')
+            ->find((int)$subjectToRemoveId);
+
+        $contractId = $request->request->get('contractId');
+        $contract = $em->getRepository('UbbIssBundle:Studycontract')
+            ->find((int)$contractId);
+
+        $contract->removeSubject($subjectToRemove);
+        $em->flush();
+
+        return $this->redirectToRoute('ubb_iss_edit_contract',
+            array(
+                'contractId' => $contractId
+            ));
+
+    }
+
 }
 
 

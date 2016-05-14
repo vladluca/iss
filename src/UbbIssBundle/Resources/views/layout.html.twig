@@ -27,6 +27,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+
                 </button>
                 <a class="navbar-brand" href="#">UBB ISS</a>
             </div>
@@ -36,13 +38,21 @@
                     <li>
                         <a href="{{ path("ubb_iss_homepage") }}">Homepage</a>
                     </li>
-                    <li>
+                        {#student user#}
                         {% if( app.user.teacher == null) %}
-                            <a href="{{ path("ubb_iss_show_student_grades") }}">My Grades</a>
+                            <li>
+                                <a href="{{ path("ubb_iss_show_student_grades") }}">My Grades</a>
+                            </li>
+                            <li>
+                                <a href="{{ path("ubb_iss_show_contracts") }}">My Contracts</a>
+                            </li>
                         {% else %}
-                            <a href="{{ path("ubb_iss_show_teacher_activities") }}">Add Grades</a>
+                            {#teacher user#}
+                            <li>
+                                <a href="{{ path("ubb_iss_show_teacher_activities") }}">Add Grades</a>
+                            </li>
+
                         {% endif %}
-                    </li>
                     <li>
                         <a href="{{ path('logout') }}">Logout</a>
                     </li>
