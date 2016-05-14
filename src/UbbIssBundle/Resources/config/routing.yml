@@ -17,3 +17,19 @@ ubb_iss_show_teacher_activities:
 ubb_iss_edit_student_grades:
     path:   /edit_grades
     defaults: { _controller: UbbIssBundle:Default:editGrades}
+
+ubb_iss_show_contracts:
+    path: /show_contracts
+    defaults: { _controller: UbbIssBundle:Default:showContracts}
+
+ubb_iss_edit_contract:
+    path: /edit_contract/{contractId}
+    defaults: {_controller: UbbIssBundle:Default:editContract}
+
+add_contract_subjects:
+    path: /add_subject
+    defaults: {_controller: UbbIssBundle:Default:addSubject}
+
+remove_contract_subjects:
+    path: /remove_subject
+    defaults: {_controller: UbbIssBundle:Default:removeSubject}
