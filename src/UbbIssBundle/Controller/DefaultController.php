@@ -399,6 +399,57 @@ class DefaultController extends Controller
 
     }
 
+    public function editPasswordAction(Request $request){
+        /***
+         *   Returns all the activities present under the current teacher
+         */
+        $authenticatedUser= $this->getUser();
+
+        $oldpass = $request->request->get('oldPassword');
+        $newpass = $request->request->get('newPassword');
+        $renewpass = $request->request->get('retypedNewPassword');
+
+
+        if($authenticatedUser->getPassword() == $oldpass){
+            if($newpass == $renewpass){
+                $authenticatedUser->setPassword($newpass);
+                $em = $this->getDoctrine()->getManager();
+                $em->flush();
+                return $this->redirectToRoute('ubb_iss_change_pass',
+                    array(
+                        'message' => "1"
+                    ));
+
+            }
+            else{
+                return $this->redirectToRoute('ubb_iss_change_pass',
+                    array(
+                        'message' => "2"
+                    ));
+            }
+
+        }
+        else{
+            return $this->redirectToRoute('ubb_iss_change_pass',
+                array(
+                    'message' => "3"
+                ));
+        }
+    }
+
+
+    public function changePasswordAction(){
+        /***
+         *   Returns all the activities present under the current teacher
+         */
+        $authenticatedUser= $this->getUser();
+
+        return $this->render('UbbIssBundle:changePassword.html.twig',
+            array(
+                'message' => "0"
+            ));
+    }
+
 }
 
 

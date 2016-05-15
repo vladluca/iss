@@ -41,3 +41,11 @@ add_contract_subjects:
 remove_contract_subjects:
     path: /remove_subject
     defaults: {_controller: UbbIssBundle:Default:removeSubject}
+
+ubb_iss_change_pass:
+    path:     /change_password
+    defaults: { _controller: UbbIssBundle:Default:changePassword }
+
+ubb_iss_edit_pass:
+    path:     /change_password_action
+    defaults: { _controller: UbbIssBundle:Default:editPassword }
