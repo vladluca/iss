@@ -127,7 +127,16 @@ class DefaultController extends Controller
             }
         }
 
-        $students = $subject->getSpecialization()->getStudents();
+        $students = [];
+        $studentsSub = $subject->getSpecialization()->getStudents();
+        $studentsLine = $line->getStudents();
+
+
+        foreach($studentsLine as $sl) {
+            if($studentsSub->contains($sl)){
+                array_push($students, $sl);
+            }
+        }
 
         $groups = [];
         foreach($students as $s){
@@ -203,7 +212,16 @@ class DefaultController extends Controller
         $stu = [];
         $ev = [];
 
-        $students = $subject->getSpecialization()->getStudents();
+        $students = [];
+        $studentsSub = $subject->getSpecialization()->getStudents();
+        $studentsLine = $line->getStudents();
+
+
+        foreach($studentsLine as $sl) {
+            if($studentsSub->contains($sl)){
+                array_push($students, $sl);
+            }
+        }
 
         foreach ($students as $s) {
             if($s->getGroup()->getStudyYear() == floor(($subjectSem+1)/2) && $s->getGroup()->getName() == $Group) {
