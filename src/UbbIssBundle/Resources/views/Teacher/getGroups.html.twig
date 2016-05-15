@@ -11,9 +11,13 @@
 {% block content %}
     <div>
         <table>
-            {% for g in groups %}
-                <tr><td> <a href = "{{ path("ubb_iss_add_student_grades", {'line':line.getId(), 'SubName':sub, 'SpecName':spec ,'Group':g.getName()} ) }}">{{ g.getName() }} </a></td></tr>
-            {% endfor %}
+            {% if groups|length == 0 %}
+                <p>NOTHING TO SHOW</p>
+            {% else %}
+                {% for g in groups %}
+                    <tr><td> <a href = "{{ path("ubb_iss_add_student_grades", {'line':line.getId(), 'SubName':sub, 'SpecName':spec ,'Group':g.getName()} ) }}">{{ g.getName() }} </a></td></tr>
+                {% endfor %}
+            {% endif %}
         </table>
     </div>
 

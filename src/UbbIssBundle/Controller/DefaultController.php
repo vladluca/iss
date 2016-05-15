@@ -80,9 +80,16 @@ class DefaultController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $SpecName = $em->getRepository('UbbIssBundle:Specialization')->findOneBy(array('name' => $SpecName));
+        $SubName = $em->getRepository('UbbIssBundle:Subject')->findOneBy(array('id' => $SubName));
+
+        $spc = $SubName->getSpecialization();
+        $lin = $SubName->getStudyline();
+
+
+
         $Sline = [];
 
-        $Lines = $SpecName->getStudylines();
+        $Lines = $spc->getStudylines();
 
         foreach($Lines as $l){
             array_push($Sline, $l);
@@ -126,22 +133,24 @@ class DefaultController extends Controller
                 break;
             }
         }
-
-        $students = [];
-        $studentsSub = $subject->getSpecialization()->getStudents();
-        $studentsLine = $line->getStudents();
-
-
-        foreach($studentsLine as $sl) {
-            if($studentsSub->contains($sl)){
-                array_push($students, $sl);
-            }
-        }
-
         $groups = [];
-        foreach($students as $s){
-            if(!in_array($s->getGroup(), $groups)){
-                array_push($groups, $s->getGroup());
+        if($subject != null) {
+            $students = [];
+            $studentsSub = $subject->getSpecialization()->getStudents();
+            $studentsLine = $line->getStudents();
+
+
+            foreach ($studentsLine as $sl) {
+                if ($studentsSub->contains($sl)) {
+                    array_push($students, $sl);
+                }
+            }
+
+
+            foreach ($students as $s) {
+                if (!in_array($s->getGroup(), $groups)) {
+                    array_push($groups, $s->getGroup());
+                }
             }
         }
 
@@ -152,7 +161,6 @@ class DefaultController extends Controller
                 /***
                  * list of activities
                  */
-                'students' => $students,
                 'groups' => $groups,
                 'sub' => $SubName->getName(),
                 'line' => $line,
