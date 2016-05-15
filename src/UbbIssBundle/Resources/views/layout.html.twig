@@ -41,12 +41,20 @@
                     {% if( app.user.teacher == null) %}
                         <li>
                             <a href="{{ path("ubb_iss_show_student_grades") }}">My Grades</a>
-                        <li><a href="{{ path("ubb_iss_show_contracts") }}">My Contracts</a></li>
+                        <li>
+                            <a href="{{ path("ubb_iss_show_contracts") }}">My Contracts</a>
+                            <li>
+                                <a href="{{ path("ubb_iss_change_pass") }}">Change Password</a>
+                            </li>
+                        </li>
                         </li>
 
                     {% else %}
                         <li>
                             <a href="{{ path("ubb_iss_show_teacher_activities") }}">Add Grades</a>
+                            <li>
+                                <a href="{{ path("ubb_iss_change_pass") }}">Change Password</a>
+                            </li>
                         </li>
                     {% endif %}
                 {% endif %}
