@@ -1,0 +1,20 @@
+{% extends "UbbIssBundle:layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/ubbiss/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('bundles/ubbiss/css/custom.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('bundles/ubbiss/css/full.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+    <div>
+        <table>
+            {% for g in groups %}
+                <tr><td> <a href = "{{ path("ubb_iss_add_student_grades", {'line':line.getId(), 'SubName':sub, 'SpecName':spec ,'Group':g.getName()} ) }}">{{ g.getName() }} </a></td></tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}
