@@ -5,6 +5,7 @@ namespace UbbIssBundle\Controller;
 use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use UbbIssBundle\Entity\Evaluation;
 use UbbIssBundle\Entity\Subject;
 
 class DefaultController extends Controller
@@ -48,7 +49,127 @@ class DefaultController extends Controller
             ));
     }
 
-    public function addGradesAction($SubName){
+    public function getSpecializationAction($Sname){
+        /***
+         *   Returns all the activities present under the current teacher
+         */
+        $authenticatedUser= $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $Sname = $em->getRepository('UbbIssBundle:Subject')->findOneBy(array('name' => $Sname));
+        $spec = [];
+        if(!in_array($Sname->getSpecialization(), $spec)){
+            array_push($spec, $Sname->getSpecialization());
+        }
+
+
+        return $this->render('UbbIssBundle:Teacher:getSpecialization.html.twig',
+            array(
+                'username' => $authenticatedUser->getUsername(),
+                /***
+                 * list of specs
+                 */
+                'spec' => $spec
+            ));
+    }
+
+    public function getSpecializationLinesAction($SubName, $SpecName){
+        /***
+         *   Returns all the activities present under the current teacher
+         */
+        $authenticatedUser= $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        $SpecName = $em->getRepository('UbbIssBundle:Specialization')->findOneBy(array('name' => $SpecName));
+        $Sline = [];
+
+        $Lines = $SpecName->getStudylines();
+
+        foreach($Lines as $l){
+            array_push($Sline, $l);
+        }
+
+        return $this->render('UbbIssBundle:Teacher:getSpecializationLines.html.twig',
+            array(
+                'username' => $authenticatedUser->getUsername(),
+                /***
+                 * list of activities
+                 */
+                'lines' => $Sline,
+                'sub' => $SubName,
+                'spec' => $SpecName
+            ));
+    }
+
+
+    public function getGroupsAction($line, $SubName, $SpecName){
+        /***
+         *   Returns all the activities present under the current teacher
+         */
+        $authenticatedUser= $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        $SpecName = $em->getRepository('UbbIssBundle:Specialization')->findOneBy(array('name' => $SpecName));
+        $SubName = $em->getRepository('UbbIssBundle:Subject')->findOneBy(array('name' => $SubName));
+        $line = $em->getRepository('UbbIssBundle:Studyline')->findOneBy(array('id' => $line));
+
+        $lineSubjects = $line->getSubjects();
+        $lineSub = [];
+        foreach($lineSubjects as $s){
+            if($s->getName() == $SubName->getName()){
+                array_push($lineSub, $s);
+            }
+        }
+        $subject = null;
+        foreach($lineSub as $s){
+            if($s->getSpecialization()->getName() == $SpecName->getName()){
+                $subject = $s;
+                break;
+            }
+        }
+
+        $students = $subject->getSpecialization()->getStudents();
+
+        $groups = [];
+        foreach($students as $s){
+            if(!in_array($s->getGroup(), $groups)){
+                array_push($groups, $s->getGroup());
+            }
+        }
+
+
+        return $this->render('UbbIssBundle:Teacher:getGroups.html.twig',
+            array(
+                'username' => $authenticatedUser->getUsername(),
+                /***
+                 * list of activities
+                 */
+                'students' => $students,
+                'groups' => $groups,
+                'sub' => $SubName->getName(),
+                'line' => $line,
+                'spec' => $SpecName
+            ));
+    }
+
+    private function tryGetEval($student, $eval){
+        $found = false;
+        $evaluation = null;
+        foreach ($eval as $e) {
+            if($student->getId() == $e->getStudent()->getId()){
+                $found = true;
+                $evaluation = $e;
+                break;
+            }
+        }
+        if($found){
+            return $evaluation;
+        }
+        else{
+            return null;
+        }
+    }
+
+    public function addGradesAction($line, $SubName, $SpecName, $Group){
         /***
          * SubName = a string containing the name of a subject
          *
@@ -58,31 +179,42 @@ class DefaultController extends Controller
          *   If the student i does not have an evaluation, the i-th evaluation will contain null value
          */
         $authenticatedUser= $this->getUser();
-        $activities = $authenticatedUser->getTeacher()->getActivities();
-        $activity = null;
-        foreach ($activities as $a) {
-            if($a->getSubject()->getName() == $SubName) {
-                $activity = $a;
+        $em = $this->getDoctrine()->getManager();
+        $SpecName = $em->getRepository('UbbIssBundle:Specialization')->findOneBy(array('name' => $SpecName));
+        $SubName = $em->getRepository('UbbIssBundle:Subject')->findOneBy(array('name' => $SubName));
+        $line = $em->getRepository('UbbIssBundle:Studyline')->findOneBy(array('id' => $line));
+
+        $lineSubjects = $line->getSubjects();
+        $lineSub = [];
+        foreach($lineSubjects as $s){
+            if($s->getName() == $SubName->getName()){
+                array_push($lineSub, $s);
             }
         }
-        $subject = $activity->getSubject();
-        $students = $activity->getSubject()->getSpecialization()->getStudents();
+        $subject = null;
+        foreach($lineSub as $s){
+            if($s->getSpecialization()->getName() == $SpecName->getName()){
+                $subject = $s;
+                break;
+            }
+        }
+
         $subjectSem = $subject->getSemester();
         $stu = [];
         $ev = [];
+
+        $students = $subject->getSpecialization()->getStudents();
+
         foreach ($students as $s) {
-            if($s->getGroup()->getStudyYear() == floor(($subjectSem+1)/2)) {
+            if($s->getGroup()->getStudyYear() == floor(($subjectSem+1)/2) && $s->getGroup()->getName() == $Group) {
                 array_push($stu, $s);
             }
         }
+
+
         $eval = $subject->getEvaluations();
         foreach ($stu as $s) {
-            foreach ($eval as $e) {
-                if($s->getId() == $e->getStudent()->getId()){
-                    array_push($ev, $e);
-                    break;
-                }
-            }
+            array_push($ev, $this->tryGetEval($s, $eval));
         }
 
 
@@ -101,8 +233,14 @@ class DefaultController extends Controller
                  * list of corresponding student evaluations
                  */
                 'eval' => $ev,
+                'allEvalCC' => count($eval),
+                'line' => $line,
+                'SpecName' => $SpecName,
+                'Group' => $Group
             ));
     }
+
+
 
     public function editContractAction($contractId){
 
@@ -142,20 +280,38 @@ class DefaultController extends Controller
         $subjectId = $request->request->get('subjectId');
         $studentId = $request->request->get('studentId');
 
+        $line = $request->request->get('lineId');
+        $SpecName = $request->request->get('SpecName');
+        $Group = $request->request->get('Group');
+
         $em = $this->getDoctrine()->getManager();
 
         $sbj = $em->getRepository('UbbIssBundle:Subject')->find($subjectId);
 
         $eval= $em->getRepository('UbbIssBundle:Evaluation')->findOneBy(array('subject'=> $subjectId, 'student'=>$studentId));
+        $ev = new Evaluation();
+        if($eval != null) {
+            $eval->setSessionGrade((int)$newSgrade);
+            $eval->setRetakeSessionGrade((int)$newRgrade);
 
-        $eval->setSessionGrade((int)$newSgrade);
-        $eval->setRetakeSessionGrade((int)$newRgrade);
+            $em->flush();
+        }
+        elseif($eval == null) {
+            $em = $this->getDoctrine()->getManager();
+            $sj = $em->getRepository('UbbIssBundle:Subject')->findOneBy(array('id' => $subjectId));
+            $st = $em->getRepository('UbbIssBundle:Student')->findOneBy(array('id' => $studentId));
 
-        $em->flush();
+            $ev->setSubject($sj);
+            $ev->setStudent($st);
+            $ev->setSessionGrade((int)$newSgrade);
+            $ev->setRetakeSessionGrade((int)$newRgrade);
+
+            $em->persist($ev);
+            $em->flush();
+        }
 
 
-
-        return $this->redirectToRoute('ubb_iss_add_student_grades',array('SubName'=>$sbj) );
+        return $this->redirectToRoute('ubb_iss_add_student_grades',array('SubName'=>$sbj, 'line'=>$line, 'SpecName'=>$SpecName, 'Group'=>$Group) );
     }
 
     public function showContractsAction(){

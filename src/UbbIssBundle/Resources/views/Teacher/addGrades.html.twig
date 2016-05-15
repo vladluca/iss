@@ -9,7 +9,7 @@
 
 
 {% block content %}
-
+{{ dump() }}
     <div>
         {{ subject.getName() }}
         {% if students|length >0 %}
@@ -40,6 +40,9 @@
                                             {#passing a hidden parameter containing the evaluated student's ID#}
                                             <input name="studentId" type="hidden" value = {{ students[i].getId() }} />
                                             {#passing new grade's values#}
+                                            <input name="lineId" type="hidden" value={{ line.getId() }} >
+                                            <input name="SpecName" type="hidden" value={{ SpecName.getName() }} >
+                                            <input name="Group" type="hidden" value={{ Group }} >
                                             <input name="sessionGrade" type="number" id="sessionGrade" min="1" max="10" />
                                             <input name="retakeGrade" type="number" id="retakeGrade" min="1" max="10"/>
                                             <button type="submit" >Edit grades</button>
@@ -50,6 +53,21 @@
                                 <tr>
                                     <td>{{ students[i].getName() }}</td>
                                     <td>NOT SET</td><td>NOT SET</td>
+                                    <td>
+                                    <div class="tableValue"></div>
+                                    <form id ="editGrades" name="editGrades" action="{{ path('ubb_iss_edit_student_grades') }}" method="post">
+                                        {#passing a hidden parameter containing the evaluated subject's ID#}
+                                        <input name="subjectId" type="hidden" value={{ subject.getId() }} >
+                                        {#passing a hidden parameter containing the evaluated student's ID#}
+                                        <input name="studentId" type="hidden" value = {{ students[i].getId() }} />
+                                        {#passing new grade's values#}
+                                        <input name="lineId" type="hidden" value={{ line.getId() }} >
+                                        <input name="SpecName" type="hidden" value={{ SpecName.getName() }} >
+                                        <input name="Group" type="hidden" value={{ Group }} >
+                                        <input name="sessionGrade" type="number" id="sessionGrade" min="1" max="10" />
+                                        <input name="retakeGrade" type="number" id="retakeGrade" min="1" max="10"/>
+                                        <button type="submit" >Edit grades</button>
+                                    </form></td>
                                 </tr>
                             {% endif %}
                         {% endfor %}

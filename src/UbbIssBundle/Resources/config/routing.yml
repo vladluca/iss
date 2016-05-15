@@ -7,8 +7,16 @@ ubb_iss_show_student_grades:
     defaults: { _controller: UbbIssBundle:Default:showGrades }
 
 ubb_iss_add_student_grades:
-    path:     /add_grades/{SubName}
+    path:     /add_grades/line={line}&SubName={SubName}&SpecName={SpecName}&Group={Group}
     defaults: { _controller: UbbIssBundle:Default:addGrades }
+
+ubb_iss_study_lines:
+    path:     /specs/SubName={SubName}&SpecName={SpecName}
+    defaults: { _controller: UbbIssBundle:Default:getSpecializationLines }
+
+ubb_iss_group:
+    path:     /group/line={line}&SubName={SubName}&SpecName={SpecName}
+    defaults: { _controller: UbbIssBundle:Default:getGroups }
 
 ubb_iss_show_teacher_activities:
     path:     /activities
