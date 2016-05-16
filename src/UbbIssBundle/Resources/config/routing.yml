@@ -49,3 +49,8 @@ ubb_iss_change_pass:
 ubb_iss_edit_pass:
     path:     /change_password_action
     defaults: { _controller: UbbIssBundle:Default:editPassword }
+
+
+add_contract:
+    path: /add_contract/semester={semester}
+    defaults: {_controller: UbbIssBundle:Default:addContract}
