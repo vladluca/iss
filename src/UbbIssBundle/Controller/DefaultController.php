@@ -3,6 +3,7 @@
 namespace UbbIssBundle\Controller;
 
 use Doctrine\ORM\Mapping\Id;
+use Proxies\__CG__\UbbIssBundle\Entity\Studycontract;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use UbbIssBundle\Entity\Evaluation;
@@ -347,10 +348,21 @@ class DefaultController extends Controller
         $studName = $student->getName();
         $contracts = $student->getStudycontracts();
 
+        $sems = [];
+
+        $requiredSems= range(1,6);
+
+        foreach($contracts as $contr){
+            array_push($sems,$contr->getSemester());
+        }
+
+        $rest = array_diff($requiredSems, $sems);
+
         return $this->render('UbbIssBundle:Student:showStudyContracts.html.twig',
             array(
                 'studName' => $studName,
-               'contracts' => $contracts
+               'contracts' => $contracts,
+                'rest' => $rest
             ));
     }
 
@@ -448,6 +460,24 @@ class DefaultController extends Controller
             array(
                 'message' => "0"
             ));
+    }
+
+    public function addContractAction($semester){
+
+        $contract = new Studycontract();
+
+        $contract->setSemester((int)$semester);
+
+        $user = $this->getUser();
+        $student = $user->getStudent();
+        $contract->setStudent($student);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($contract);
+        $em->flush();
+
+        return $this->showContractsAction();
+
     }
 
 }

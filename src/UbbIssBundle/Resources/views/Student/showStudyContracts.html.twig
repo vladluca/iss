@@ -15,8 +15,19 @@
             Study contracts:
             {% for contr in contracts %}
                 {#{{ dump(contr.getId()) }}#}
-                <tr><td><a href = "{{ path("ubb_iss_edit_contract", {'contractId':contr.getId() }  ) }}">Semester: {{ contr.getSemester() }}</a></td></tr>
+                <tr>
+                    <td><a href = "{{ path("ubb_iss_edit_contract", {'contractId':contr.getId() }  ) }}">Semester: {{ contr.getSemester() }}</a></td>
+                </tr>
             {% endfor %}
+
+            {% for r in rest %}
+                <tr>
+                    <td>
+                        <a href="{{ path("add_contract", {'semester':r}) }}">Add semester {{ r }} contract</a>
+                    </td>
+                </tr>
+            {% endfor %}
+
         </table>
     </div>
 
