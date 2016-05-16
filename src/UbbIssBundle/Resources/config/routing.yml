@@ -54,3 +54,11 @@ ubb_iss_edit_pass:
 add_contract:
     path: /add_contract/semester={semester}
     defaults: {_controller: UbbIssBundle:Default:addContract}
+
+assign_activities:
+    path: /assign_activities
+    defaults: {_controller: UbbIssBundle:Default:assignActivities}
+
+add_activity:
+    path: /add_activity/
+    defaults: {_controller: UbbIssBundle:Default:addActivity}

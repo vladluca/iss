@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping\Id;
 use Proxies\__CG__\UbbIssBundle\Entity\Studycontract;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use UbbIssBundle\Entity\Activity;
 use UbbIssBundle\Entity\Evaluation;
 use UbbIssBundle\Entity\Subject;
 
@@ -478,6 +479,58 @@ class DefaultController extends Controller
 
         return $this->showContractsAction();
 
+    }
+
+    public function assignActivitiesAction(){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $teachers = $em->getRepository('UbbIssBundle:Teacher')->findBy(
+            array('rank' => 'Asistent')
+        );
+
+
+        $subjecs = $em->getRepository('UbbIssBundle:Subject')->findAll();
+
+        $activities = [];
+
+        array_push($activities,"Lab","Seminar");
+
+
+
+        return $this->render('UbbIssBundle:Teacher:listAssistents.html.twig',
+            array(
+                'teachers' => $teachers,
+                'subjects' => $subjecs,
+                'activities' =>$activities
+            ));
+    }
+
+    public function addActivityAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $assistantId = $request->request->get('assistantId');
+        $asssistant = $em->getRepository('UbbIssBundle:Teacher')->find((int)$assistantId);
+
+        $subjectId = $request->request->get('subjectId');
+        $subject = $em->getRepository('UbbIssBundle:Subject')->find((int)$subjectId);
+
+
+        $hoursPerWeek = $request->request->get('weekHours');
+
+        $activity = new Activity();
+
+        $activity->setHoursPerWeek($hoursPerWeek);
+        $activity->setTeacher($asssistant);
+        $activity->setSubject($subject);
+
+        $em->persist($activity);
+        $em->flush();
+
+        return $this->assignActivitiesAction();
+
+        return null;
     }
 
 }
