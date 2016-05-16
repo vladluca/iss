@@ -1,0 +1,49 @@
+{% extends "UbbIssBundle:layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/ubbiss/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('bundles/ubbiss/css/custom.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('bundles/ubbiss/css/full.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+
+    <div>
+        <table>
+            Assistents:
+            {% for t in teachers %}
+                <tr>
+                    <td>{{ t.name }}</td>
+
+                    <td>
+                        <form action="{{ path('add_activity') }}" method="post">
+                            <select name="assistantId">
+                                {% for a in activities %}
+                                    <option name="assistantId" value="{{ a }}">{{ a }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <select name="subjectId">
+                                {% for s in subjects %}
+                                    <option name="subjectId" value="{{ s.getId() }}">{{ s.getName() }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <input name="weekHours" type="number" id="sessionGrade" min="1" max="40" />
+
+                            <button type="submit" >Add activity</button>
+                        </form>
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+{% endblock %}
+{#<form id ="editGrades" name="editGrades" action="{{ path('ubb_iss_edit_student_grades') }}" method="post">#}
+    {#passing a hidden parameter containing the evaluated subject's ID#}
+    {#<input name="subjectId" type="hidden" value={{ subject.getId() }} >#}
