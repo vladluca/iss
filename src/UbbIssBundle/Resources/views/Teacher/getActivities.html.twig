@@ -1,0 +1,21 @@
+{% extends "UbbIssBundle:layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/ubbiss/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('bundles/ubbiss/css/custom.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('bundles/ubbiss/css/full.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+
+    <div>
+        <table>
+            {% for act in activities %}
+                <tr><td><a href = "{{ path("ubb_iss_study_lines", {'SubName':act.getSubject().getId(), 'SpecName':act.getSubject().getSpecialization()}  ) }}">{{ act.getSubject() }} ( {{ act.getSubject().getSpecialization() }} )</a></td></tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}

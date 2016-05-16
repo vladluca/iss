@@ -1,5 +1,23 @@
 {% extends "UbbIssBundle:layout.html.twig" %}
 
+{% block javascripts %}
+    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js'></script>
+    <script>
+        function image(thisImg) {
+            var img = document.createElement("IMG");
+            img.src = thisImg;
+            document.getElementById('imageDiv').appendChild(img);
+        }
+        var images = ["http://www.ibackgroundwallpaper.com/wp-content/uploads/2015/05/new-york-sunset-on-water.jpg",
+            "http://www.ibackgroundwallpaper.com/wp-content/uploads/2014/03/Milky-Way-Galaxy-Wallpaper.jpg",
+            "http://www.ibackgroundwallpaper.com/wp-content/uploads/2014/03/beer-on-the-moon-wallpaper.jpeg"
+        ];
+
+        var index = Math.floor((Math.random() * 3) + 0);
+
+        image(images[index]);
+    </script>
+{% endblock %}
 {% block content %}
-    <img src="http://www.ibackgroundwallpaper.com/wp-content/uploads/2015/05/new-york-sunset-on-water.jpg">
+    <div id="imageDiv"></div>
 {% endblock %}

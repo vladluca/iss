@@ -1,0 +1,96 @@
+{% extends "UbbIssBundle:layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/ubbiss/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" xmlns:5>
+    <link href="{{ asset('bundles/ubbiss/css/custom.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('bundles/ubbiss/css/full.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+{#table with added subjects -addedSubj #}
+
+    {#<style>#}
+        {#.inlineTable {#}
+            {#display: inline-block;#}
+        {#}#}
+    {#</style>#}
+
+    <div >
+        {% if addedSubj|length>0 %}
+            Already added subjects:
+            <table style="width:30%" > {#class="inlineTable"#}
+                <tr>
+                    <thead class="backgr">
+                    <th><div class="tableText">Name</div></th>
+                    <th><div class="tableText">Credits</div></th>
+                    <th><div class="tableText">Editing</div></th>
+                    </thead>
+                </tr>
+                <tr>
+                    <tbody class="insideText">
+                    {% for i in 0 .. addedSubj|length - 1 %}
+                        <tr>
+                            <td><div class="tableValue"></div>{{ addedSubj[i].getName() }}</td>
+                            <td><div class="tableValue"></div>{{ addedSubj[i].getCredits() }}</td>
+                            <td>
+                                <div class="tableValue"></div>
+                                <form id ="editContracts" name="editContracts" action="{{ path('remove_contract_subjects') }}" method="post">
+                                    {#passing a hidden parameter containing the to-be-added subject's ID#}
+
+                                    {#{{ dump(addedSubj[i].getId()) }}#}
+
+                                    <input name="addedSubjectId" type="hidden" value={{ addedSubj[i].getId() }} >
+                                    {#passing a hidden parameter containing the current edited contract#}
+                                    <input name="contractId" type="hidden" value={{ contractId }} />
+                                    <button type="submit" >Remove subject</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </tr>
+            </table>
+        {% else %}
+            <p>NO ADDED SUBJECTS FOR THIS SEMESTER</p>
+        {% endif %}
+        {#table with available subjects -availableSubj #}
+        {% if availableSubj|length>0 %}
+            Available subjects:
+            <table style="width:30%">
+                <tr>
+                    <thead class="backgr">
+                    <th><div class="tableText">Name</div></th>
+                    <th><div class="tableText">Credits</div></th>
+                    <th><div class="tableText">Editing</div></th>
+                    </thead>
+                </tr>
+                <tr>
+                    <tbody class="insideText">
+                    {% for i in 0 .. availableSubj|length - 1 %}
+                        <tr>
+                            <td><div class="tableValue"></div>{{ availableSubj[i].getName() }}</td>
+                            <td><div class="tableValue"></div>{{ availableSubj[i].getCredits() }}</td>
+                            <td>
+                                <div class="tableValue"></div>
+                                <form id ="editContracts" name="editContracts" action="{{ path('add_contract_subjects') }}" method="post">
+                                    {#passing a hidden parameter containing the to-be-added subject's ID#}
+                                    <input name="availableSubjectId" type="hidden" value={{ availableSubj[i].getId() }} >
+                                    {#passing a hidden parameter containing the current edited contract#}
+                                    <input name="contractId" type="hidden" value={{ contractId }} />
+                                    <button type="submit" >Add subject</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </tr>
+            </table>
+        {% else %}
+            <p>NO AVAILABLE SUBJECTS TO ADD FOR THIS SEMESTER</p>
+        {% endif %}
+    </div>
+
+
+{% endblock %}
