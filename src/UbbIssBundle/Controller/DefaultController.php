@@ -592,7 +592,55 @@ class DefaultController extends Controller
 
     public function topStudentsAction($specialization, $line){
 
+        $em = $this->getDoctrine()->getManager();
+        $spec = $em->getRepository('UbbIssBundle:Specialization')->findOneBy(array('id' => $specialization));
+        $line = $em->getRepository('UbbIssBundle:Studyline')->findOneBy(array('id' => $line));
 
+        $students = $spec->getStudents();
+
+        $stu = [];
+        $avg = [];
+        foreach($students as $s){
+            if($s->getStudyline()->getId() == $line->getId()){
+                $eval = $s->getEvaluations();
+                $a = 0;
+                $count = 0;
+                foreach($eval as $e){
+                    if($e->getSessionGrade() > $e->getRetakeSessionGrade()) {
+                        $a = $a + ($e->getSessionGrade()*$e->getSubject()->getCredits());
+                        $count = $count + $e->getSubject()->getCredits();
+                    }
+                    else {
+                        $a = $a + ($e->getRetakeSessionGrade()*$e->getSubject()->getCredits());
+                        $count = $count + $e->getSubject()->getCredits();
+                    }
+                }
+                if($count != 0){
+                    array_push($stu, $s);
+                    $a = $a / $count;
+                    array_push($avg, $a);
+                }
+            }
+        }
+
+        if(count($stu) > 5){
+            $stu2 = [];
+            $avg2 = [];
+            for ($x = 0; $x < 5; $x++) {
+                array_push($stu2, $stu[$x]);
+                array_push($avg2, $avg[$x]);
+            }
+            $stu = $stu2;
+            $avg = $avg2;
+        }
+
+
+        return $this->render('UbbIssBundle:Teacher:getTopStudents.html.twig',
+            array(
+                'message' => "test",
+                'students' => $stu,
+                'avg' => $avg
+            ));
 
     }
 

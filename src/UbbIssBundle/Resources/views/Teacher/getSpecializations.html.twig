@@ -15,7 +15,7 @@
         <table class="table table-bordered">
             {% for spec in specializations %}
                 <tr>
-                    <td><a href = "{{ path("top_study_lines", {'specialization':spec.getId() ) }}">{{ spec.name }} </a></td>
+                    <td><a href = "{{ path("top_study_lines", {'specialization':spec.getId() } ) }}">{{ spec.name }} </a></td>
                 </tr>
             {% endfor %}
         </table>

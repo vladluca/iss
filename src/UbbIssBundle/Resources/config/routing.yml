@@ -72,7 +72,7 @@ students_top:
     defaults: {_controller: UbbIssBundle:Default:studentsTop}
 
 top_study_lines:
-    patch: /students_top/specialization={specialization}/
+    path: /students_top/specialization={specialization}/
     defaults: {_controller: UbbIssBundle:Default:topStudylines}
 
 top_students:
