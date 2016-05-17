@@ -62,3 +62,19 @@ assign_activities:
 add_activity:
     path: /add_activity/
     defaults: {_controller: UbbIssBundle:Default:addActivity}
+
+remove_activity:
+    path: /remove_activity/
+    defaults: {_controller: UbbIssBundle:Default:removeActivity}
+
+students_top:
+    path: /students_top/
+    defaults: {_controller: UbbIssBundle:Default:studentsTop}
+
+top_study_lines:
+    patch: /students_top/specialization={specialization}/
+    defaults: {_controller: UbbIssBundle:Default:topStudylines}
+
+top_students:
+    path: /students_top/study_lines/specialization={specialization}&line={line}/
+    defaults: {_controller: UbbIssBundle:Default:topStudents}
