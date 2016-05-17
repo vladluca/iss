@@ -498,26 +498,102 @@ class DefaultController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
+        $activityType = $request->request->get('activity');
+//        var_dump($activityType);
+
         $assistantId = $request->request->get('assistantId');
+//        var_dump((int)$assistantId);
+
         $asssistant = $em->getRepository('UbbIssBundle:Teacher')->find((int)$assistantId);
+//        var_dump($asssistant->getName());
 
         $subjectId = $request->request->get('subjectId');
         $subject = $em->getRepository('UbbIssBundle:Subject')->find((int)$subjectId);
 
         $hoursPerWeek = $request->request->get('weekHours');
 
-        $activity = new Activity();
+        if ($hoursPerWeek) {
+            $activity = new Activity();
+            $activity->setHoursPerWeek($hoursPerWeek);
+            $activity->setTeacher($asssistant);
+            $activity->setSubject($subject);
+            $activity->setType($activityType);
 
-        $activity->setHoursPerWeek($hoursPerWeek);
-        $activity->setTeacher($asssistant);
-        $activity->setSubject($subject);
+            $em->persist($activity);
+            $em->flush();
 
-        $em->persist($activity);
+            return $this->assignActivitiesAction();
+        }
+        return $this->assignActivitiesAction();
+    }
+
+    public function removeActivityAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $assistantId = $request->request->get('assistantId');
+
+        $assistant = $em->getRepository('UbbIssBundle:Teacher')->find((int)$assistantId);
+
+        $activityId = $request->request->get('activityId');
+
+        $activity = $em->getRepository('UbbIssBundle:Activity')->find((int)$activityId);
+
+        $assistant->removeActivity($activity);
+
+        $em->persist($assistant);
         $em->flush();
 
-        return $this->assignActivitiesAction();
+        $teachers = $em->getRepository('UbbIssBundle:Teacher')->findBy(
+            array('rank' => 'Asistent')
+        );
 
-        return null;
+
+        $subjecs = $em->getRepository('UbbIssBundle:Subject')->findAll();
+
+        $activities = [];
+
+        array_push($activities,"Lab","Seminar");
+
+        return $this->render('UbbIssBundle:Teacher:listAssistents.html.twig',
+            array(
+                'teachers' => $teachers,
+                'subjects' => $subjecs,
+                'activities' =>$activities
+            ));
+    }
+
+    public function studentsTopAction(){
+
+        $em = $this->getDoctrine()->getManager();
+        $specializations = $em->getRepository('UbbIssBundle:Specialization')->findAll();
+
+        return $this->render('UbbIssBundle:Teacher:getSpecializations.html.twig',
+            array(
+                'specializations'=>$specializations
+            ));
+
+    }
+
+    public function topStudylinesAction($specialization){
+
+        $em = $this->getDoctrine()->getManager();
+        $spec = $em->getRepository('UbbIssBundle:Specialization')->find((int)$specialization);
+
+        $lines = $spec->getStudylines();
+
+        return $this->render('UbbIssBundle:Teacher:getStudylines.html.twig',
+            array(
+                'lines'=>$lines,
+                'specialization'=>$specialization
+            ));
+
+    }
+
+    public function topStudentsAction($specialization, $line){
+
+
+
     }
 
 }

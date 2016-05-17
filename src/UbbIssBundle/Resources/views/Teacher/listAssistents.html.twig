@@ -19,19 +19,20 @@
 
                     <td>
                         <form action="{{ path('add_activity') }}" method="post">
-                            <select name="assistantId">
+                            <input name="assistantId" type="hidden" value={{ t.id }} >
+                            <select name="activity">
                                 {% for a in activities %}
-                                    <option name="assistantId" value="{{ a }}">{{ a }}</option>
+                                    <option  value="{{ a }}">{{ a }}</option>
                                 {% endfor %}
                             </select>
-
+                            {#{{ dump(option.name) }}#}
                             <select name="subjectId">
                                 {% for s in subjects %}
-                                    <option name="subjectId" value="{{ s.getId() }}">{{ s.getName() }}</option>
+                                    <option value="{{ s.getId() }}">{{ s.getName() }}</option>
                                 {% endfor %}
                             </select>
 
-                            <input name="weekHours" type="number" id="sessionGrade" min="1" max="40" />
+                            <input name="weekHours" type="number" id="sessionGrade" min="1" max="40" null="false" default="1" />
 
                             <button type="submit" >Add activity</button>
                         </form>
@@ -41,6 +42,33 @@
             {% endfor %}
 
         </table>
+
+        <table class="table table-bordered" style="width: auto">
+            {% for t in teachers %}
+                <tr>
+                    <td>{{ t.name }}"</td>
+                    {% for act in t.activities %}
+                        <td>{{ act.subject.name }}:{{ act.type }} - {{ act.hoursPerWeek }}h per week</td>
+                        <td>
+                            <form action="{{ path('remove_activity') }}" method="post">
+                                {#passing a hidden parameter containing the evaluated subject's ID#}
+                                <input name="subjectId" type="hidden" value={{ act.subject.getId() }} >
+                                {#passing a hidden parameter containing the evaluated student's ID#}
+                                <input name="assistantId" type="hidden" value = {{ t.getId() }} />
+                                <input name="activityId" type="hidden" value = {{ act.getId() }} />
+
+
+                                {#passing new grade's values#}
+                                <button type="submit" >Remove activity</button>
+                            </form>
+                        </td>
+                    {% endfor %}
+                </tr>
+
+
+            {% endfor %}
+        </table>
+
     </div>
 
 {% endblock %}
