@@ -7,20 +7,23 @@
     <link href="{{ asset('bundles/ubbiss/css/full.css') }}" type="text/css" rel="stylesheet">
 {% endblock %}
 
-
 {% block content %}
-
-    <div>
-    Specializations:
+    <p>TOP 5 :</p>
     <table class="table table-bordered">
-    {% for line in lines %}
+        <thead class="backgr">
         <tr>
-            <td>
-                <a href = "{{ path("top_students", {'line':line.getId(), 'specialization':specialization} ) }}"> {{  line.getLanguage() }} </a>
-            </td>
-                </tr>
-            {% endfor %}
-        </table>
-    </div>
+            <th><div class="tableText">Name</div></th>
+            <th><div class="tableText">Avg</div></th>
+        </tr>
+        </thead>
 
+        <tbody class="insideText">
+        {% for i in 0 .. students|length - 1 %}
+            <tr>
+                <td>{{ students[i].getName() }}</td>
+                <td>{{ avg[i] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
