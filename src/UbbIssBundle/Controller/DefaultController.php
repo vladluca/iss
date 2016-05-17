@@ -63,7 +63,6 @@ class DefaultController extends Controller
             array_push($spec, $Sname->getSpecialization());
         }
 
-
         return $this->render('UbbIssBundle:Teacher:getSpecialization.html.twig',
             array(
                 'username' => $authenticatedUser->getUsername(),
@@ -86,8 +85,6 @@ class DefaultController extends Controller
 
         $spc = $SubName->getSpecialization();
         $lin = $SubName->getStudyline();
-
-
 
         $Sline = [];
 
@@ -155,7 +152,6 @@ class DefaultController extends Controller
                 }
             }
         }
-
 
         return $this->render('UbbIssBundle:Teacher:getGroups.html.twig',
             array(
@@ -226,7 +222,6 @@ class DefaultController extends Controller
         $studentsSub = $subject->getSpecialization()->getStudents();
         $studentsLine = $line->getStudents();
 
-
         foreach($studentsLine as $sl) {
             if($studentsSub->contains($sl)){
                 array_push($students, $sl);
@@ -239,12 +234,10 @@ class DefaultController extends Controller
             }
         }
 
-
         $eval = $subject->getEvaluations();
         foreach ($stu as $s) {
             array_push($ev, $this->tryGetEval($s, $eval));
         }
-
 
         return $this->render('UbbIssBundle:Teacher:addGrades.html.twig',
             array(
@@ -267,8 +260,6 @@ class DefaultController extends Controller
                 'Group' => $Group
             ));
     }
-
-
 
     public function editContractAction($contractId){
 
@@ -422,7 +413,6 @@ class DefaultController extends Controller
         $newpass = $request->request->get('newPassword');
         $renewpass = $request->request->get('retypedNewPassword');
 
-
         if($authenticatedUser->getPassword() == $oldpass){
             if($newpass == $renewpass){
                 $authenticatedUser->setPassword($newpass);
@@ -496,8 +486,6 @@ class DefaultController extends Controller
 
         array_push($activities,"Lab","Seminar");
 
-
-
         return $this->render('UbbIssBundle:Teacher:listAssistents.html.twig',
             array(
                 'teachers' => $teachers,
@@ -515,7 +503,6 @@ class DefaultController extends Controller
 
         $subjectId = $request->request->get('subjectId');
         $subject = $em->getRepository('UbbIssBundle:Subject')->find((int)$subjectId);
-
 
         $hoursPerWeek = $request->request->get('weekHours');
 
