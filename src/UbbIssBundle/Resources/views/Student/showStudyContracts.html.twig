@@ -9,10 +9,14 @@
 
 
 {% block content %}
-
+    <title>{% block title %}Study contracts{% endblock %}</title>
+    <br>
+    </br>
+    <div class="upText">Study Contracts</div>
+    <div class="tableText">SELECT SEMESTER:</div>
+    <br>
     <div>
-        <table>
-            Study contracts:
+        <table class="table table-bordered">
             {% for contr in contracts %}
                 {#{{ dump(contr.getId()) }}#}
                 <tr>

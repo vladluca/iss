@@ -10,7 +10,12 @@
 
 {% block content %}
     <div>
-        <table>
+        <br>
+        </br>
+        <div class="upText">Add Grades</div>
+        <div class="tableText">SELECT SPECIALIZATION LINE:</div>
+        <br>
+        <table class="table table-bordered">
             {% for l in lines %}
                 <tr><td><a href = "{{ path("ubb_iss_group", {'line':l.getId() , 'SubName':sub, 'SpecName':spec} ) }}"> {{ l.getLanguage() }}  </a></td></tr>
             {% endfor %}
