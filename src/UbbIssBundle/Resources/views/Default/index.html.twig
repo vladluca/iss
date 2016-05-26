@@ -1,24 +1,72 @@
 {% extends "UbbIssBundle:layout.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/ubbiss/css/custom.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
 {% block javascripts %}
     <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js'></script>
-    <script>
-        function image(thisImg) {
-            var img = document.createElement("IMG");
-            img.src = thisImg;
-            document.getElementById('imageDiv').appendChild(img);
-        }
-        var images = ["http://www.ibackgroundwallpaper.com/wp-content/uploads/2015/05/new-york-sunset-on-water.jpg",
-            "http://www.ibackgroundwallpaper.com/wp-content/uploads/2014/03/Milky-Way-Galaxy-Wallpaper.jpg",
-                "http://wallpapercave.com/wp/IkN04WE.jpg"
-        ];
+    {#<script>#}
+        {#function image(thisImg) {#}
+            {#var img = document.createElement("IMG");#}
+            {#img.src = thisImg;#}
+            {#document.getElementById('imageDiv').appendChild(img);#}
+        {#}#}
+        {#var images = ["http://www.ibackgroundwallpaper.com/wp-content/uploads/2015/05/new-york-sunset-on-water.jpg",#}
+            {#"http://www.ibackgroundwallpaper.com/wp-content/uploads/2014/03/Milky-Way-Galaxy-Wallpaper.jpg",#}
+                {#"http://wallpapercave.com/wp/IkN04WE.jpg"#}
+        {#];#}
 
-        var index = Math.floor((Math.random() * 3) + 0);
+        {#var index = Math.floor((Math.random() * 3) + 0);#}
 
-        image(images[index]);
-    </script>
+        {#image(images[index]);#}
+    {#</script>#}
 {% endblock %}
 {% block content %}
-    <div id="imageDiv">
+    {% if( app.user.teacher == null) %}
+    <div class="jumbotron">
+        <div class="initText">
+
+        <div class="labels">Name:</div>
+       {{ app.user.student.name }}
+        <br>
+        <div class="labels">Email:</div>
+       {{ app.user.student.email }}
+        <br>
+        <div class="labels">Address:</div>
+       {{ app.user.student.address }}
+
+        {#{% for g in groups %}#}
+            {#{% if g.getId() == app.user.student.group_id %}#}
+                {#<div class="labels">Group:</div>#}
+                {#{{ g.getName() }}#}
+            {#{% endif %}#}
+        {#{% endfor %}#}
+
+        </div>
+        <div class="bottomText">Vita sine litteris mort est.</div>
+
+        </div>
+
+    {% endif %}
+
+    {% if( app.user.teacher != null) %}
+        <div class="jumbotron1">
+            <div class="initText">
+
+        <div class="labels">Name:</div>
+        {{ app.user.teacher.name }}
+        <br>
+        <div class="labels">Rank:</div>
+        {{ app.user.teacher.rank }}
+        <br>
+        <div class="labels">Email:</div>
+        {{ app.user.teacher.email }}
+
+        <div class="bottomText">Vita sine litteris mort est.</div>
+
+    {% endif %}
+        </div>
     </div>
 {% endblock %}
