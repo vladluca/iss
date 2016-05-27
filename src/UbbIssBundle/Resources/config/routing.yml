@@ -30,10 +30,6 @@ ubb_iss_show_contracts:
     path: /show_contracts
     defaults: { _controller: UbbIssBundle:Default:showContracts}
 
-ubb_iss_edit_contract:
-    path: /edit_contract/{contractId}
-    defaults: {_controller: UbbIssBundle:Default:editContract}
-
 add_contract_subjects:
     path: /add_subject
     defaults: {_controller: UbbIssBundle:Default:addSubject}
@@ -78,3 +74,7 @@ top_study_lines:
 top_students:
     path: /students_top/study_lines/specialization={specialization}&line={line}/
     defaults: {_controller: UbbIssBundle:Default:topStudents}
+
+ubb_iss_edit_contracts:
+    path: /edit_contract/{contractYear}
+    defaults: {_controller: UbbIssBundle:Default:editContracts}
