@@ -1,5 +1,10 @@
 {% extends "UbbIssBundle:layout.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/ubbiss/css/custom.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
 {% block javascripts %}
     <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js'></script>
     <script>
@@ -19,6 +24,52 @@
     </script>
 {% endblock %}
 {% block content %}
-    <div id="imageDiv">
+
+    {% if app.user.teacher is defined %}
+
+         {% if( app.user.teacher == null) %}
+            <div class="jumbotron">
+               <div class="initText">
+
+              <div class="labels">Name:</div>
+                 {{ app.user.student.name }}
+              <br>
+              <div class="labels">Email:</div>
+                  {{ app.user.student.email }}
+              <br>
+              <div class="labels">Address:</div>
+                  {{ app.user.student.address }}
+
+
+                <div class="bottomText">Vita sine litteris mort est.</div>
+           </div>
+
+          </div>
+
+       {% endif %}
+
+      {% if( app.user.teacher != null) %}
+        <div class="jumbotron1">
+            <div class="initText">
+
+        <div class="labels">Name:</div>
+        {{ app.user.teacher.name }}
+        <br>
+        <div class="labels">Rank:</div>
+        {{ app.user.teacher.rank }}
+        <br>
+        <div class="labels">Email:</div>
+        {{ app.user.teacher.email }}
+
+        <div class="bottomText">Vita sine litteris mort est.</div>
+        </div>
     </div>
+    {% endif %}
+        {% else %}
+            <div class="jumbotron1">
+            <div class="initText">
+                Welcome, admin!
+        </div>
+        </div>
+            {% endif %}
 {% endblock %}
