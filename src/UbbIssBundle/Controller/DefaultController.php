@@ -261,35 +261,69 @@ class DefaultController extends Controller
             ));
     }
 
-    public function editContractAction($contractId){
 
+
+    public function editContractsAction($contractYear)
+    {
         $em = $this->getDoctrine()->getManager();
 
-        $contract = $em->getRepository('UbbIssBundle:Studycontract')
-            ->find((int)$contractId);
-
-        $addedSubjects = $contract->getSubjects();
-
+        $contractsRepo = $em->getRepository('UbbIssBundle:Studycontract');
         $subjRepo = $em->getRepository('UbbIssBundle:Subject');
-        $availableSubj = $subjRepo->findBy(
-            array('semester' => $contract->getSemester())
+
+        $lower = $contractYear*2 -1;
+        $upper = $contractYear*2;
+
+        $contract1 = $contractsRepo->findOneBy (
+            array('semester' => $lower)
+        );
+        $contract2 = $contractsRepo->findOneBy (
+            array('semester' => $upper )
         );
 
-        $availables=[];
-        foreach($addedSubjects as $adds){
-            array_push($availables,$adds);
+        $addedSubjects1 = $contract1->getSubjects();
+        $availableSubj1 = $subjRepo->findBy(
+            array('semester' => $contract1->getSemester())
+        );
+
+        $availables1=[];
+        foreach($addedSubjects1 as $adds){
+            array_push($availables1,$adds);
         }
 
-        $result = array_diff($availableSubj,$availables);
-        $result2=array_values($result);
+        $result1 = array_diff($availableSubj1,$availables1);
+        $result1=array_values($result1);
+
+
+        $addedSubjects2 = $contract2->getSubjects();
+        $availableSubj2 = $subjRepo->findBy(
+            array('semester' => $contract2->getSemester())
+        );
+
+        $availables2=[];
+        foreach($addedSubjects2 as $adds){
+            array_push($availables2,$adds);
+        }
+
+        $result2 = array_diff($availableSubj2,$availables2);
+        $result2 = array_values($result2);
+
 
         return $this->render('UbbIssBundle:Student:editStudyContracts.html.twig',
             array(
-                'addedSubj' => $addedSubjects,
-                'availableSubj' => $result2,
-                'contractId' => $contractId
+
+                'contractYear' => $contractYear,
+
+                'addedSubj1' => $addedSubjects1,
+                'availableSubj1' => $result1,
+                'contractId1' => $contract1->getId(),
+
+                'addedSubj2' => $addedSubjects2,
+                'availableSubj2' => $result2,
+                'contractId2' => $contract2->getId()
+
             ));
     }
+
 
     public function editGradesAction(Request $request){
 
@@ -335,28 +369,9 @@ class DefaultController extends Controller
 
     public function showContractsAction(){
 
-        $user = $this->getUser();
-        $student = $user->getStudent();
-        $studName = $student->getName();
-        $contracts = $student->getStudycontracts();
-
-        $sems = [];
-
-        $requiredSems= range(1,6);
-
-        foreach($contracts as $contr){
-            array_push($sems,$contr->getSemester());
-        }
-
-        $rest = array_diff($requiredSems, $sems);
-
-        return $this->render('UbbIssBundle:Student:showStudyContracts.html.twig',
-            array(
-                'studName' => $studName,
-               'contracts' => $contracts,
-                'rest' => $rest
-            ));
+        return $this->render('UbbIssBundle:Student:showStudyContracts.html.twig');
     }
+
 
     public function addSubjectAction(Request $request){
 
@@ -367,16 +382,18 @@ class DefaultController extends Controller
         $subjectToAdd = $em->getRepository('UbbIssBundle:Subject')
             ->find((int)$subjectToAddId);
 
+        $contractYear = $request->request->get('contractYear');
         $contractId = $request->request->get('contractId');
+
         $contract = $em->getRepository('UbbIssBundle:Studycontract')
             ->find((int)$contractId);
 
         $contract->addSubject($subjectToAdd);
         $em->flush();
 
-        return $this->redirectToRoute('ubb_iss_edit_contract',
+        return $this->redirectToRoute('ubb_iss_edit_contracts',
             array(
-                'contractId' => $contractId
+                'contractYear' => $contractYear
             ));
     }
 
@@ -387,18 +404,20 @@ class DefaultController extends Controller
         $subjectToRemoveId = $request->request->get('addedSubjectId');
 
         $subjectToRemove = $em->getRepository('UbbIssBundle:Subject')
-            ->find((int)$subjectToRemoveId);
+            ->find($subjectToRemoveId);
 
+        $contractYear = $request->request->get('contractYear');
         $contractId = $request->request->get('contractId');
+
         $contract = $em->getRepository('UbbIssBundle:Studycontract')
             ->find((int)$contractId);
 
         $contract->removeSubject($subjectToRemove);
         $em->flush();
 
-        return $this->redirectToRoute('ubb_iss_edit_contract',
+        return $this->redirectToRoute('ubb_iss_edit_contracts',
             array(
-                'contractId' => $contractId
+                'contractYear' => $contractYear
             ));
 
     }

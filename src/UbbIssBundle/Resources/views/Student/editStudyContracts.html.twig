@@ -22,8 +22,13 @@
     <div class="upText">Study Contracts</div>
     <div class="tableText">EDIT YOUR STUDY CONTRACT:</div>
     <br>
+
+
+    <div class="h4">EDIT FIRST SEMESTER OF THIS YEAR:</div>
+
+
     <div >
-        {% if addedSubj|length>0 %}
+        {% if addedSubj1|length>0 %}
             Already added subjects:
             <table style="width:30%" > {#class="inlineTable"#}
                 <tr>
@@ -33,22 +38,28 @@
                     <th><div class="tableText">Editing</div></th>
                     </thead>
                 </tr>
+
+                {#'addedSubj1' => $addedSubjects1,#}
+                {#'availableSubj1' => $result1,#}
+                {#'contractId1' => $contract1,#}
+
                 <tr>
                     <tbody class="insideText">
-                    {% for i in 0 .. addedSubj|length - 1 %}
+                    {% for i in 0 .. addedSubj1|length - 1 %}
                         <tr>
-                            <td><div class="tableValue"></div>{{ addedSubj[i].getName() }}</td>
-                            <td><div class="tableValue"></div>{{ addedSubj[i].getCredits() }}</td>
+                            <td><div class="tableValue"></div>{{ addedSubj1[i].getName() }}</td>
+                            <td><div class="tableValue"></div>{{ addedSubj1[i].getCredits() }}</td>
                             <td>
                                 <div class="tableValue"></div>
                                 <form id ="editContracts" name="editContracts" action="{{ path('remove_contract_subjects') }}" method="post">
                                     {#passing a hidden parameter containing the to-be-added subject's ID#}
 
-                                    {#{{ dump(addedSubj[i].getId()) }}#}
+                                    {#{{ dump(addedSubj1[i].getId()) }}#}
+                                    <input name="contractId" type="hidden" value={{ contractId1 }} >
 
-                                    <input name="addedSubjectId" type="hidden" value={{ addedSubj[i].getId() }} >
+                                    <input name="addedSubjectId" type="hidden" value={{ addedSubj1[i].getId() }} >
                                     {#passing a hidden parameter containing the current edited contract#}
-                                    <input name="contractId" type="hidden" value={{ contractId }} />
+                                    <input name="contractYear" type="hidden" value={{ contractYear }} />
                                     <button type="submit" >Remove subject</button>
                                 </form>
                             </td>
@@ -61,7 +72,7 @@
             <p>NO ADDED SUBJECTS FOR THIS SEMESTER</p>
         {% endif %}
         {#table with available subjects -availableSubj #}
-        {% if availableSubj|length>0 %}
+        {% if availableSubj1|length>0 %}
             Available subjects:
             <table style="width:30%">
                 <tr>
@@ -73,17 +84,18 @@
                 </tr>
                 <tr>
                     <tbody class="insideText">
-                    {% for i in 0 .. availableSubj|length - 1 %}
+                    {% for i in 0 .. availableSubj1|length - 1 %}
                         <tr>
-                            <td><div class="tableValue"></div>{{ availableSubj[i].getName() }}</td>
-                            <td><div class="tableValue"></div>{{ availableSubj[i].getCredits() }}</td>
+                            <td><div class="tableValue"></div>{{ availableSubj1[i].getName() }}</td>
+                            <td><div class="tableValue"></div>{{ availableSubj1[i].getCredits() }}</td>
                             <td>
                                 <div class="tableValue"></div>
                                 <form id ="editContracts" name="editContracts" action="{{ path('add_contract_subjects') }}" method="post">
                                     {#passing a hidden parameter containing the to-be-added subject's ID#}
-                                    <input name="availableSubjectId" type="hidden" value={{ availableSubj[i].getId() }} >
+                                    <input name="availableSubjectId" type="hidden" value={{ availableSubj1[i].getId() }} >
                                     {#passing a hidden parameter containing the current edited contract#}
-                                    <input name="contractId" type="hidden" value={{ contractId }} />
+                                    <input name="contractId" type="hidden" value={{ contractId1 }} />
+                                    <input name="contractYear" type="hidden" value={{ contractYear }} />
                                     <button type="submit" >Add subject</button>
                                 </form>
                             </td>
@@ -96,5 +108,89 @@
             <p>NO AVAILABLE SUBJECTS TO ADD FOR THIS SEMESTER</p>
         {% endif %}
     </div>
+
+
+    <br>
+    <br>
+    <div class="h4">EDIT SECOND SEMESTER OF THIS YEAR:</div>
+
+
+    <div >
+        {% if addedSubj2|length>0 %}
+            Already added subjects:
+            <table style="width:30%" > {#class="inlineTable"#}
+                <tr>
+                    <thead class="backgr">
+                    <th><div class="tableText">Name</div></th>
+                    <th><div class="tableText">Credits</div></th>
+                    <th><div class="tableText">Editing</div></th>
+                    </thead>
+                </tr>
+                <tr>
+                    <tbody class="insideText">
+                    {% for i in 0 .. addedSubj2|length - 1 %}
+                        <tr>
+                            <td><div class="tableValue"></div>{{ addedSubj2[i].getName() }}</td>
+                            <td><div class="tableValue"></div>{{ addedSubj2[i].getCredits() }}</td>
+                            <td>
+                                <div class="tableValue"></div>
+                                <form id ="editContracts" name="editContracts" action="{{ path('remove_contract_subjects') }}" method="post">
+                                    {#passing a hidden parameter containing the to-be-added subject's ID#}
+
+                                    {#{{ dump(addedSubj[i].getId()) }}#}
+
+                                    <input name="addedSubjectId" type="hidden" value={{ addedSubj2[i].getId() }} >
+                                    {#passing a hidden parameter containing the current edited contract#}
+                                    <input name="contractId" type="hidden" value={{ contractId2 }} />
+                                    <input name="contractYear" type="hidden" value={{ contractYear }} />
+                                    <button type="submit" >Remove subject</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </tr>
+            </table>
+        {% else %}
+            <p>NO ADDED SUBJECTS FOR THIS SEMESTER</p>
+        {% endif %}
+        {#table with available subjects -availableSubj #}
+        {% if availableSubj2|length>0 %}
+            Available subjects:
+            <table style="width:30%">
+                <tr>
+                    <thead class="backgr">
+                    <th><div class="tableText">Name</div></th>
+                    <th><div class="tableText">Credits</div></th>
+                    <th><div class="tableText">Editing</div></th>
+                    </thead>
+                </tr>
+                <tr>
+                    <tbody class="insideText">
+                    {% for i in 0 .. availableSubj2|length - 1 %}
+                        <tr>
+                            <td><div class="tableValue"></div>{{ availableSubj2[i].getName() }}</td>
+                            <td><div class="tableValue"></div>{{ availableSubj2[i].getCredits() }}</td>
+                            <td>
+                                <div class="tableValue"></div>
+                                <form id ="editContracts" name="editContracts" action="{{ path('add_contract_subjects') }}" method="post">
+                                    {#passing a hidden parameter containing the to-be-added subject's ID#}
+                                    <input name="availableSubjectId" type="hidden" value={{ availableSubj2[i].getId() }} >
+                                    {#passing a hidden parameter containing the current edited contract#}
+                                    <input name="contractId" type="hidden" value={{ contractId2 }} />
+                                    <input name="contractYear" type="hidden" value={{ contractYear }} />
+                                    <button type="submit" >Add subject</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </tr>
+            </table>
+        {% else %}
+            <p>NO AVAILABLE SUBJECTS TO ADD FOR THIS SEMESTER</p>
+        {% endif %}
+    </div>
+
 
 {% endblock %}

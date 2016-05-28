@@ -12,24 +12,26 @@
     <br>
     </br>
     <div class="upText">Study Contracts</div>
-    <div class="tableText">SELECT SEMESTER:</div>
+    <div class="tableText">SELECT YEAR:</div>
     <br>
     <div>
         <table class="table table-bordered">
-            {% for contr in contracts %}
+
+
+            {% for year in range(1, 3) %}
                 {#{{ dump(contr.getId()) }}#}
                 <tr>
-                    <td><a href = "{{ path("ubb_iss_edit_contract", {'contractId':contr.getId() }  ) }}">Semester: {{ contr.getSemester() }}</a></td>
+                    <td><a href = "{{ path("ubb_iss_edit_contracts", {'contractYear': year }  ) }}">Year: {{ year }}</a></td>
                 </tr>
             {% endfor %}
 
-            {% for r in rest %}
-                <tr>
-                    <td>
-                        <a href="{{ path("add_contract", {'semester':r}) }}">Add semester {{ r }} contract</a>
-                    </td>
-                </tr>
-            {% endfor %}
+            {#{% for r in rest %}#}
+                {#<tr>#}
+                    {#<td>#}
+                        {#<a href="{{ path("add_contract", {'semester':r}) }}">Add semester {{ r }} contract</a>#}
+                    {#</td>#}
+                {#</tr>#}
+            {#{% endfor %}#}
 
         </table>
     </div>
