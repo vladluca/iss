@@ -78,3 +78,8 @@ top_students:
 ubb_iss_edit_contracts:
     path: /edit_contract/{contractYear}
     defaults: {_controller: UbbIssBundle:Default:editContracts}
+
+ubb_iss_select_date:
+    path: /select_date/line={line}&SubName={SubName}&SpecName={SpecName}&Group={Group}
+    defaults: {_controller: UbbIssBundle:Default:selectDate}
+

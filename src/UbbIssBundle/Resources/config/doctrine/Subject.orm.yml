@@ -13,6 +13,13 @@ UbbIssBundle\Entity\Subject:
             type: integer
         semester:
             type: integer
+        optional:
+            type: string
+            length: 3
+        optional_group:
+            type: integer
+        optional_count:
+            type: integer
     manyToOne:
         specialization:
             targetEntity: Specialization

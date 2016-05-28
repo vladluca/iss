@@ -1,0 +1,22 @@
+{% extends "UbbIssBundle:layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/ubbiss/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('bundles/ubbiss/css/custom.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('bundles/ubbiss/css/full.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <form id="date" name="date" action="{{ path('ubb_iss_add_student_grades', {'line':line, 'SubName':SubName, 'SpecName':SpecName ,'Group':Group} ) }}" method="post">
+        <div>
+            <input id="line_id" name="line_id" type="hidden" value="{{ line }}" /> <br>
+            <input id="sub_name" name="sub_name" type="hidden" value="{{ SubName }}" /> <br>
+            <input id="spec_name" name="spec_name" type="hidden" value="{{ SpecName }}" /> <br>
+            <input id="group" name="group" type="hidden" value="{{ Group }}" /> <br>
+            <input id="date" name="date" type="date" />
+            <input id="session_type" name="session_type" type="checkbox" value="retake_session">Is retake session?</input> <br>
+            <input id="submit" name="submit" type="submit" /> <br>
+        </div>
+    </form>
+{% endblock %}

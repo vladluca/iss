@@ -10,6 +10,12 @@ UbbIssBundle\Entity\Evaluation:
             type: integer
         retakeSessionGrade:
             type: integer
+        sessionDateOne:
+            type: date
+        sessionDateTwo:
+            type: date
+        retakeSessionDate:
+            type: date
     manyToOne:
         subject:
             targetEntity: Subject

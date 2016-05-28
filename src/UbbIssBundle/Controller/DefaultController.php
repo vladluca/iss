@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping\Id;
 use Proxies\__CG__\UbbIssBundle\Entity\Studycontract;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\DateTime;
 use UbbIssBundle\Entity\Activity;
 use UbbIssBundle\Entity\Evaluation;
 use UbbIssBundle\Entity\Subject;
@@ -184,7 +185,7 @@ class DefaultController extends Controller
         }
     }
 
-    public function addGradesAction($line, $SubName, $SpecName, $Group){
+    public function addGradesAction(Request $request, $line, $SubName, $SpecName, $Group){
         /***
          * SubName = a string containing the name of a subject
          *
@@ -198,6 +199,8 @@ class DefaultController extends Controller
         $SpecName = $em->getRepository('UbbIssBundle:Specialization')->findOneBy(array('name' => $SpecName));
         $SubName = $em->getRepository('UbbIssBundle:Subject')->findOneBy(array('name' => $SubName));
         $line = $em->getRepository('UbbIssBundle:Studyline')->findOneBy(array('id' => $line));
+        $date = $request->request->get('date');
+        $session_type = $request->request->get('session_type');
 
         $lineSubjects = $line->getSubjects();
         $lineSub = [];
@@ -228,15 +231,42 @@ class DefaultController extends Controller
             }
         }
 
-        foreach ($students as $s) {
-            if($s->getGroup()->getStudyYear() == floor(($subjectSem+1)/2) && $s->getGroup()->getName() == $Group) {
-                array_push($stu, $s);
-            }
-        }
+//        foreach ($students as $s) {
+//            if($s->getGroup()->getStudyYear() == floor(($subjectSem+1)/2) && $s->getGroup()->getName() == $Group) {
+//                array_push($stu, $s);
+//            }
+//        }
+//
+//        $eval = $subject->getEvaluations();
+//        foreach ($stu as $s) {
+//            array_push($ev, $this->tryGetEval($s, $eval));
+//        }
+        if($session_type == null){
+            $eval = $subject->getEvaluations();
 
-        $eval = $subject->getEvaluations();
-        foreach ($stu as $s) {
-            array_push($ev, $this->tryGetEval($s, $eval));
+            foreach ($students as $s) {
+                if($s->getGroup()->getStudyYear() == floor(($subjectSem+1)/2) && $s->getGroup()->getName() == $Group) {
+                    if($this->tryGetEval($s, $eval) == null) {
+                        array_push($stu, $s);
+                        array_push($ev, null);
+                    }
+                }
+            }
+
+
+        }
+        else {
+            foreach ($students as $s) {
+                if ($s->getGroup()->getStudyYear() == floor(($subjectSem + 1) / 2) && $s->getGroup()->getName() == $Group) {
+                    array_push($stu, $s);
+                }
+            }
+
+            $eval = $subject->getEvaluations();
+            foreach ($stu as $s) {
+                array_push($ev, $this->tryGetEval($s, $eval));
+            }
+
         }
 
         return $this->render('UbbIssBundle:Teacher:addGrades.html.twig',
@@ -257,7 +287,9 @@ class DefaultController extends Controller
                 'allEvalCC' => count($eval),
                 'line' => $line,
                 'SpecName' => $SpecName,
-                'Group' => $Group
+                'Group' => $Group,
+                'date' => $date,
+                'type' => $session_type
             ));
     }
 
@@ -301,11 +333,13 @@ class DefaultController extends Controller
 
         $availables2=[];
         foreach($addedSubjects2 as $adds){
-            array_push($availables2,$adds);
+            if($adds->getptional() == "yes") {
+                array_push($availables2, $adds);
+            }
         }
 
-        $result2 = array_diff($availableSubj2,$availables2);
-        $result2 = array_values($result2);
+//        $result2 = array_diff($availableSubj2,$availables2);
+//        $result2 = array_values($result2);
 
 
         return $this->render('UbbIssBundle:Student:editStudyContracts.html.twig',
@@ -318,7 +352,7 @@ class DefaultController extends Controller
                 'contractId1' => $contract1->getId(),
 
                 'addedSubj2' => $addedSubjects2,
-                'availableSubj2' => $result2,
+                'availableSubj2' => $availables2,
                 'contractId2' => $contract2->getId()
 
             ));
@@ -336,6 +370,8 @@ class DefaultController extends Controller
         $line = $request->request->get('lineId');
         $SpecName = $request->request->get('SpecName');
         $Group = $request->request->get('Group');
+
+        $date = $request->request->get('date');
 
         $em = $this->getDoctrine()->getManager();
 
@@ -358,6 +394,12 @@ class DefaultController extends Controller
             $ev->setStudent($st);
             $ev->setSessionGrade((int)$newSgrade);
             $ev->setRetakeSessionGrade((int)$newRgrade);
+
+            $date = new \DateTime($date);
+            $test = new \DateTime('0000-00-00');
+            $ev->setSessionDateOne($date);
+            $ev->setSessionDateTwo($test);
+            $ev->setRetakeSessionDate($test);
 
             $em->persist($ev);
             $em->flush();
@@ -646,6 +688,21 @@ class DefaultController extends Controller
                 'message' => "test",
                 'students' => $stu,
                 'avg' => $avg
+            ));
+
+    }
+
+
+    public function selectDateAction($line, $SubName, $SpecName, $Group){
+
+        $em = $this->getDoctrine()->getManager();
+
+        return $this->render('UbbIssBundle:Teacher:selectDate.html.twig',
+            array(
+                'line' => $line,
+                'SubName' => $SubName,
+                'SpecName' => $SpecName,
+                'Group' => $Group
             ));
 
     }
