@@ -136,4 +136,88 @@ class Evaluation
     {
         return $this->student;
     }
+    /**
+     * @var \DateTime
+     */
+    private $sessionDateOne;
+
+    /**
+     * @var \DateTime
+     */
+    private $sessionDateTwo;
+
+    /**
+     * @var \DateTime
+     */
+    private $retakeSessionDate;
+
+
+    /**
+     * Set sessionDateOne
+     *
+     * @param \DateTime $sessionDateOne
+     * @return Evaluation
+     */
+    public function setSessionDateOne($sessionDateOne)
+    {
+        $this->sessionDateOne = $sessionDateOne;
+
+        return $this;
+    }
+
+    /**
+     * Get sessionDateOne
+     *
+     * @return \DateTime 
+     */
+    public function getSessionDateOne()
+    {
+        return $this->sessionDateOne;
+    }
+
+    /**
+     * Set sessionDateTwo
+     *
+     * @param \DateTime $sessionDateTwo
+     * @return Evaluation
+     */
+    public function setSessionDateTwo($sessionDateTwo)
+    {
+        $this->sessionDateTwo = $sessionDateTwo;
+
+        return $this;
+    }
+
+    /**
+     * Get sessionDateTwo
+     *
+     * @return \DateTime 
+     */
+    public function getSessionDateTwo()
+    {
+        return $this->sessionDateTwo;
+    }
+
+    /**
+     * Set retakeSessionDate
+     *
+     * @param \DateTime $retakeSessionDate
+     * @return Evaluation
+     */
+    public function setRetakeSessionDate($retakeSessionDate)
+    {
+        $this->retakeSessionDate = $retakeSessionDate;
+
+        return $this;
+    }
+
+    /**
+     * Get retakeSessionDate
+     *
+     * @return \DateTime 
+     */
+    public function getRetakeSessionDate()
+    {
+        return $this->retakeSessionDate;
+    }
 }

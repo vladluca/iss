@@ -294,4 +294,88 @@ class Subject
     public function __toString() {
         return $this->name;
     }
+    /**
+     * @var string
+     */
+    private $optional;
+
+
+    /**
+     * Set optional
+     *
+     * @param string $optional
+     * @return Subject
+     */
+    public function setOptional($optional)
+    {
+        $this->optional = $optional;
+
+        return $this;
+    }
+
+    /**
+     * Get optional
+     *
+     * @return string 
+     */
+    public function getOptional()
+    {
+        return $this->optional;
+    }
+    /**
+     * @var integer
+     */
+    private $optional_group;
+
+    /**
+     * @var integer
+     */
+    private $optional_count;
+
+
+    /**
+     * Set optional_group
+     *
+     * @param integer $optionalGroup
+     * @return Subject
+     */
+    public function setOptionalGroup($optionalGroup)
+    {
+        $this->optional_group = $optionalGroup;
+
+        return $this;
+    }
+
+    /**
+     * Get optional_group
+     *
+     * @return integer 
+     */
+    public function getOptionalGroup()
+    {
+        return $this->optional_group;
+    }
+
+    /**
+     * Set optional_count
+     *
+     * @param integer $optionalCount
+     * @return Subject
+     */
+    public function setOptionalCount($optionalCount)
+    {
+        $this->optional_count = $optionalCount;
+
+        return $this;
+    }
+
+    /**
+     * Get optional_count
+     *
+     * @return integer 
+     */
+    public function getOptionalCount()
+    {
+        return $this->optional_count;
+    }
 }

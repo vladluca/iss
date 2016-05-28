@@ -20,7 +20,7 @@
                 <p>NOTHING TO SHOW</p>
             {% else %}
                 {% for g in groups %}
-                    <tr><td> <a href = "{{ path("ubb_iss_add_student_grades", {'line':line.getId(), 'SubName':sub, 'SpecName':spec ,'Group':g.getName()} ) }}">{{ g.getName() }} </a></td></tr>
+                    <tr><td> <a href = "{{ path("ubb_iss_select_date", {'line':line.getId(), 'SubName':sub, 'SpecName':spec ,'Group':g.getName()} ) }}">{{ g.getName() }} </a></td></tr>
                 {% endfor %}
             {% endif %}
         </table>
