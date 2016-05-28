@@ -52,7 +52,8 @@
                         <td>
                             <form action="{{ path('remove_activity') }}" method="post">
                                 {#passing a hidden parameter containing the evaluated subject's ID#}
-                                <input name="subjectId" type="hidden" value={{ act.subject.getId() }} >
+                                {#<input name="subjectId" type="hidden" value={{ act.subject.getId() }} >#}
+
                                 {#passing a hidden parameter containing the evaluated student's ID#}
                                 <input name="assistantId" type="hidden" value = {{ t.getId() }} />
                                 <input name="activityId" type="hidden" value = {{ act.getId() }} />
