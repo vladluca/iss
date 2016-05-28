@@ -494,16 +494,14 @@ class DefaultController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $teachers = $em->getRepository('UbbIssBundle:Teacher')->findBy(
-            array('rank' => 'Asistent')
-        );
+        $teachers = $em->getRepository('UbbIssBundle:Teacher')->findAll();
 
 
         $subjecs = $em->getRepository('UbbIssBundle:Subject')->findAll();
 
         $activities = [];
 
-        array_push($activities,"Lab","Seminar");
+        array_push($activities,"Lab","Seminar","Curs");
 
         return $this->render('UbbIssBundle:Teacher:listAssistents.html.twig',
             array(
@@ -554,32 +552,21 @@ class DefaultController extends Controller
 
         $assistant = $em->getRepository('UbbIssBundle:Teacher')->find((int)$assistantId);
 
+
         $activityId = $request->request->get('activityId');
 
         $activity = $em->getRepository('UbbIssBundle:Activity')->find((int)$activityId);
 
         $assistant->removeActivity($activity);
 
+        $em->remove($activity);
+
         $em->persist($assistant);
         $em->flush();
 
-        $teachers = $em->getRepository('UbbIssBundle:Teacher')->findBy(
-            array('rank' => 'Asistent')
-        );
+        return $this->assignActivitiesAction();
 
 
-        $subjecs = $em->getRepository('UbbIssBundle:Subject')->findAll();
-
-        $activities = [];
-
-        array_push($activities,"Lab","Seminar");
-
-        return $this->render('UbbIssBundle:Teacher:listAssistents.html.twig',
-            array(
-                'teachers' => $teachers,
-                'subjects' => $subjecs,
-                'activities' =>$activities
-            ));
     }
 
     public function studentsTopAction(){
