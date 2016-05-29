@@ -11,16 +11,16 @@
 {% block content %}
 
     <div>
-        <br>
-        </br>
-        <div class="upText">Add Grades</div>
+        <div class="otherText" style="font-style:italic">Add Grades</div>
         <div class="tableText">SELECT SUBJECT:</div>
         <br>
+        <div class="smallerTable">
         <table class="table table-bordered">
             {% for act in activities %}
-                <tr><td><a href = "{{ path("ubb_iss_study_lines", {'SubName':act.getSubject().getId(), 'SpecName':act.getSubject().getSpecialization()}  ) }}">{{ act.getSubject() }} ( {{ act.getSubject().getSpecialization() }} )</a></td></tr>
+                <tr class="insideText"><td><a href = "{{ path("ubb_iss_study_lines", {'SubName':act.getSubject().getId(), 'SpecName':act.getSubject().getSpecialization()}  ) }}">{{ act.getSubject() }} ( {{ act.getSubject().getSpecialization() }} )</a></td></tr>
             {% endfor %}
         </table>
+        </div>
     </div>
 
 {% endblock %}

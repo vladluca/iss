@@ -11,14 +11,18 @@
 {% block content %}
 
     <div>
-        Specializations:
+        <div class="otherText">Choose a specialization:</div>
+        <br>
+        <br>
+        <div class="smallerTable">
         <table class="table table-bordered">
             {% for spec in specializations %}
-                <tr>
+                <tr class="insideText">
                     <td><a href = "{{ path("top_study_lines", {'specialization':spec.getId() } ) }}">{{ spec.name }} </a></td>
                 </tr>
             {% endfor %}
         </table>
+        </div>
     </div>
 
 {% endblock %}

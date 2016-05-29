@@ -10,16 +10,16 @@
 
 {% block content %}
     <div>
-        <br>
-        </br>
-        <div class="upText">Add Grades</div>
+        <div class="otherText"  style="font-style:italic">Add Grades</div>
         <div class="tableText">SELECT SPECIALIZATION LINE:</div>
         <br>
+        <div class="smallerTable">
         <table class="table table-bordered">
             {% for l in lines %}
-                <tr><td><a href = "{{ path("ubb_iss_group", {'line':l.getId() , 'SubName':sub, 'SpecName':spec} ) }}"> {{ l.getLanguage() }}  </a></td></tr>
+                <tr class="insideText"><td><a href = "{{ path("ubb_iss_group", {'line':l.getId() , 'SubName':sub, 'SpecName':spec} ) }}"> {{ l.getLanguage() }}  </a></td></tr>
             {% endfor %}
         </table>
+        </div>
     </div>
 
 {% endblock %}
