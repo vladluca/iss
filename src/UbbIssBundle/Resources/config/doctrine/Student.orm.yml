@@ -20,6 +20,10 @@ UbbIssBundle\Entity\Student:
             type: string
             length: 10
             unique: true
+        cnp:
+            type: string
+            length: 13
+            unique: true
     manyToOne:
         specialization:
             targetEntity: Specialization

@@ -33,6 +33,12 @@ UbbIssBundle\Entity\Subject:
             joinColumn:
                 name: studyline_id
                 referencedColumnName: id
+        department:
+            targetEntity: Department
+            inversedBy: subjects
+            joinColumn:
+                name: department_id
+                referencedColumnName: id
     oneToMany:
         activities:
             targetEntity: Activity

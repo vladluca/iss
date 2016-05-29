@@ -378,4 +378,32 @@ class Subject
     {
         return $this->optional_count;
     }
+    /**
+     * @var \UbbIssBundle\Entity\Department
+     */
+    private $department;
+
+
+    /**
+     * Set department
+     *
+     * @param \UbbIssBundle\Entity\Department $department
+     * @return Subject
+     */
+    public function setDepartment(\UbbIssBundle\Entity\Department $department = null)
+    {
+        $this->department = $department;
+
+        return $this;
+    }
+
+    /**
+     * Get department
+     *
+     * @return \UbbIssBundle\Entity\Department 
+     */
+    public function getDepartment()
+    {
+        return $this->department;
+    }
 }

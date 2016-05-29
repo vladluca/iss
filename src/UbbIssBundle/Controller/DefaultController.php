@@ -333,7 +333,7 @@ class DefaultController extends Controller
 
         $availables2=[];
         foreach($addedSubjects2 as $adds){
-            if($adds->getptional() == "yes") {
+            if($adds->getOptional() == "yes") {
                 array_push($availables2, $adds);
             }
         }
@@ -533,13 +533,15 @@ class DefaultController extends Controller
     }
 
     public function assignActivitiesAction(){
-
+        $authenticatedUser= $this->getUser();
         $em = $this->getDoctrine()->getManager();
+        $sefdepartament = $authenticatedUser->getTeacher();
+        $currentDep = $sefdepartament->getDepartment();
 
-        $teachers = $em->getRepository('UbbIssBundle:Teacher')->findAll();
+        $teachers = $em->getRepository('UbbIssBundle:Teacher')->findBy(array('department' => $currentDep));
 
 
-        $subjecs = $em->getRepository('UbbIssBundle:Subject')->findAll();
+        $subjecs = $em->getRepository('UbbIssBundle:Subject')->findBy(array('department' => $currentDep));
 
         $activities = [];
 
@@ -552,6 +554,8 @@ class DefaultController extends Controller
                 'activities' =>$activities
             ));
     }
+
+
 
     public function addActivityAction(Request $request){
 
