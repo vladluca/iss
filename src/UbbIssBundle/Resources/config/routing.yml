@@ -83,3 +83,7 @@ ubb_iss_select_date:
     path: /select_date/line={line}&SubName={SubName}&SpecName={SpecName}&Group={Group}
     defaults: {_controller: UbbIssBundle:Default:selectDate}
 
+propose_optionals:
+    path: /propose_optionals
+    defaults: {_controller: UbbIssBundle:Default:proposeOptionals}
+

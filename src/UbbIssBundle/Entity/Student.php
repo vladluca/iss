@@ -308,4 +308,32 @@ class Student
     public function __toString() {
         return $this->id .'. '. $this->name;
     }
+    /**
+     * @var string
+     */
+    private $cnp;
+
+
+    /**
+     * Set cnp
+     *
+     * @param string $cnp
+     * @return Student
+     */
+    public function setCnp($cnp)
+    {
+        $this->cnp = $cnp;
+
+        return $this;
+    }
+
+    /**
+     * Get cnp
+     *
+     * @return string 
+     */
+    public function getCnp()
+    {
+        return $this->cnp;
+    }
 }

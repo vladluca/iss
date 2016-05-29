@@ -56,13 +56,23 @@
                                 <a href="{{ path("assign_activities") }}">Assign activities</a>
                             </li>
                             <li>
-                                <a href="{{ path("students_top") }}">Top of the students</a>
+                                <a href="{{ path("propose_optionals") }}">Propose optionals</a>
+                            </li>
+
+                        {% endif %}
+
+                        {% if app.user.teacher.rank == "Lector" %}
+                            <li>
+                                <a href="{{ path("propose_optionals") }}">Propose optionals</a>
                             </li>
 
                         {% endif %}
 
                         <li>
                             <a href="{{ path("ubb_iss_show_teacher_activities") }}">Add Grades</a>
+                            <li>
+                                <a href="{{ path("students_top") }}">Top 5 students</a>
+                            </li>
                             <li>
                                 <a href="{{ path("ubb_iss_change_pass") }}">Change Password</a>
                             </li>
