@@ -711,6 +711,66 @@ class DefaultController extends Controller
 
     }
 
+
+    public function showOptionalChoicesAction(){
+        $em = $this->getDoctrine()->getManager();
+
+        $specializations = $em->getRepository('UbbIssBundle:Specialization')->findAll();
+        $studylines = $em->getRepository('UbbIssBundle:Studyline')->findAll();
+
+
+
+        return $this->render('UbbIssBundle:Teacher:proposeOptionals.html.twig',
+            array(
+                'specializations' => $specializations,
+                'study' => $studylines
+            ));
+    }
+
+    public function proposeOptionalsAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+
+
+        $sId = $request->request->get('special_id');
+        $s = $em->getRepository('UbbIssBundle:Specialization')->find((int)$sId);
+
+        $stuId = $request->request->get('study');
+        $stu = $em->getRepository('UbbIssBundle:Studyline')->find((int)$stuId);
+
+        $name = $request->request->get('optional1name');
+        $credits = $request->request->get('credits');
+        $sem = $request->request->get('semester');
+
+        $authenticatedUser= $this->getUser();
+        $teacher = $authenticatedUser->getTeacher();
+        $currentDep = $teacher->getDepartment();
+
+        $optional = 'yes';
+        $optional_group = 0;
+        $optional_count = 0;
+
+        if ($sem) {
+            $subject = new Subject();
+            $subject->setSpecialization($s);
+            $subject->setStudyline($stu);
+            $subject->setName($name);
+            $subject->setCredits($credits);
+            $subject->setSemester($sem);
+            $subject->setDepartment($currentDep);
+            $subject->setOptional($optional);
+            $subject->setOptionalGroup($optional_group);
+            $subject->setOptionalCount($optional_count);
+
+            $em->persist($subject);
+            $em->flush();
+
+            return $this->showOptionalChoicesAction();
+        }
+
+
+        return $this->showOptionalChoicesAction();
+    }
+
 }
 
 

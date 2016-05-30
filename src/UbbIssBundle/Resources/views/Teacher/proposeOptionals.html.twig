@@ -1,0 +1,54 @@
+{% extends "UbbIssBundle:layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/ubbiss/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('bundles/ubbiss/css/custom.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('bundles/ubbiss/css/full.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="otherText" style="font-style:italic">Propose Optionals</div>
+    <div class="tableText">PROPOSE AN OPTIONAL COURSE FOR THE NEXT ACADEMIC YEAR:</div>
+
+    <br>
+    <br>
+    <br>
+    <div class="proposeTwo">
+
+
+
+            <form action="{{ path('propose_optionals') }}" method="post">
+                <div>
+
+                    name: <input name="optional1name" type="text" />
+                    <select name="special_id">
+                        {% for s in specializations %}
+                            <option  value="{{ s.getId() }}">{{ s.getName() }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="study">
+                        {% for s in study %}
+                            <option  value="{{ s.getId() }}">{{ s.getLanguage() }}</option>
+                        {% endfor %}
+                    </select>
+                    credits:<input name="credits" type="number" id="nrOfCredits" min="1" max="6" null="false" default="1" />
+                    semester:<input name="semester" type="number" id="selectSemester" min="5" max="6" null="false" default="1" />
+
+
+                    <button type="submit">Submit optional</button> </br>
+                </div>
+            </form>
+
+
+
+
+
+            {#{% if app.request.get('message') == "1" %}#}
+                {#<p>Optionals were successfully added!</p>#}
+            {#{% elseif app.request.get('message') == "2" %}#}
+                {#<p>You have already proposed two optionals for that semester!</p>#}
+            {#{% endif %}#}
+
+    </div>
+{% endblock %}
