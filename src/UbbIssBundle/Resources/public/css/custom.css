@@ -82,3 +82,40 @@
     font-weight: bold;
     color: #ffffdd ;
 }
+
+.smallerTable{
+    width: 70%;
+    margin-left: 15%;
+}
+
+.contractsText{
+    margin-left: 70%;
+    font-size: medium;
+    font-style: italic;
+    color: red;
+    text-align: left;
+    margin-top: -10%;
+    width: 25%;
+}
+
+.contractsTable{
+    /*width: 80%;*/
+    margin-left: 5%;
+
+}
+
+.titles{
+    margin-top: 10%;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+
+}
+
+.otherText{
+    margin-top: 10%;
+    font-style: normal;
+    font-size: 30px;
+    text-align: center;
+}

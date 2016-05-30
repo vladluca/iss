@@ -10,20 +10,20 @@
 
 {% block content %}
     <div>
-        <br>
-        </br>
-        <div class="upText">Add Grades</div>
+        <div class="otherText" style="font-style: italic">Add Grades</div>
         <div class="tableText">SELECT GROUP:</div>
         <br>
+        <div class="smallerTable">
         <table class="table table-bordered">
             {% if groups|length == 0 %}
                 <p>NOTHING TO SHOW</p>
             {% else %}
                 {% for g in groups %}
-                    <tr><td> <a href = "{{ path("ubb_iss_select_date", {'line':line.getId(), 'SubName':sub, 'SpecName':spec ,'Group':g.getName()} ) }}">{{ g.getName() }} </a></td></tr>
+                    <tr class="insideText"><td> <a href = "{{ path("ubb_iss_select_date", {'line':line.getId(), 'SubName':sub, 'SpecName':spec ,'Group':g.getName()} ) }}">{{ g.getName() }} </a></td></tr>
                 {% endfor %}
             {% endif %}
         </table>
+        </div>
     </div>
 
 {% endblock %}

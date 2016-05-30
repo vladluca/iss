@@ -12,16 +12,17 @@
     <div>
         <br>
         </br>
-        <div class="upText">Add Grades</div>
+        <div class="titles">Add Grades</div>
         <div class="tableText">SET GRADES:</div>
+        <br>
         <br>
         {#{{ dump() }}#}
         {#{{ subject.getName() }}#}
-        <div id="table_div">
+        {#<div class="table table-bordered">#}
             {% if students|length >0 %}
-                <table style="width:40%">
+                <table class="table table-bordered">
                     <tr>
-                        <thead class="backgr">
+                        <thead class="insideText">
                             <th><div class="tableText">Name</div></th>
                             <th><div class="tableText">Grade</div></th>
                             <th><div class="tableText">Retake Grade</div></th>
@@ -79,7 +80,7 @@
             {% else %}
                 <p>NOTHING TO SHOW</p>
             {% endif %}
-        </div>
+        {#</div>#}
     </div>
 
 {% endblock %}

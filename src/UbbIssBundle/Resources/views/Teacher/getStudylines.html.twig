@@ -11,16 +11,20 @@
 {% block content %}
 
     <div>
-    Specializations:
+        <div class="otherText">Choose a studyline:</div>
+        <br>
+        <br>
+        <div class="smallerTable">
     <table class="table table-bordered">
     {% for line in lines %}
-        <tr>
+        <tr class="insideText">
             <td>
                 <a href = "{{ path("top_students", {'line':line.getId(), 'specialization':specialization} ) }}"> {{  line.getLanguage() }} </a>
             </td>
                 </tr>
             {% endfor %}
         </table>
+            </div>
     </div>
 
 {% endblock %}

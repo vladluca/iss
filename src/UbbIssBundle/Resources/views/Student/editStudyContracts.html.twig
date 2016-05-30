@@ -23,14 +23,13 @@
     <div class="tableText">EDIT YOUR STUDY CONTRACT:</div>
     <br>
 
-
+    <div class="contractsTable">
     <div class="h4">EDIT FIRST SEMESTER OF THIS YEAR:</div>
-
 
     <div >
         {% if addedSubj1|length>0 %}
             Already added subjects:
-            <table style="width:30%" > {#class="inlineTable"#}
+            <table style="width:40%" > {#class="inlineTable"#}
                 <tr>
                     <thead class="backgr">
                     <th><div class="tableText">Name</div></th>
@@ -71,10 +70,11 @@
         {% else %}
             <p>NO ADDED SUBJECTS FOR THIS SEMESTER</p>
         {% endif %}
+        <br>
         {#table with available subjects -availableSubj #}
         {% if availableSubj1|length>0 %}
-            Available subjects:
-            <table style="width:30%">
+            All the subjects list that can be chosen in the contract:
+            <table style="width:40%">
                 <tr>
                     <thead class="backgr">
                     <th><div class="tableText">Name</div></th>
@@ -110,6 +110,7 @@
     </div>
 
 
+
     <br>
     <br>
     <div class="h4">EDIT SECOND SEMESTER OF THIS YEAR:</div>
@@ -117,8 +118,8 @@
 
     <div >
         {% if addedSubj2|length>0 %}
-            Already added subjects:
-            <table style="width:30%" > {#class="inlineTable"#}
+            Chosen subjects:
+            <table style="width:40%" > {#class="inlineTable"#}
                 <tr>
                     <thead class="backgr">
                     <th><div class="tableText">Name</div></th>
@@ -156,8 +157,8 @@
         {% endif %}
         {#table with available subjects -availableSubj #}
         {% if availableSubj2|length>0 %}
-            Available subjects:
-            <table style="width:30%">
+            All the subjects list that can be chosen in the contract:
+            <table style="width:40%">
                 <tr>
                     <thead class="backgr">
                     <th><div class="tableText">Name</div></th>
@@ -190,6 +191,15 @@
         {% else %}
             <p>NO AVAILABLE SUBJECTS TO ADD FOR THIS SEMESTER</p>
         {% endif %}
+    </div>
+
+    </div>
+
+    <div class="contractsText">
+        Contracts must be completed for a whole year.
+        You must have a minumum number of credits.
+        For finding the minumum number of credits,
+        please ask the secretary of your faculty.
     </div>
 
 
