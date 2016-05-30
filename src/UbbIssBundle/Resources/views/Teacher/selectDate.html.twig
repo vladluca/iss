@@ -8,6 +8,8 @@
 {% endblock %}
 
 {% block content %}
+    <div class="otherText" style="font-style:italic">Add Grades</div>
+    <div class="tableText">ADD EXAM DATE/ SECONDARY DATE/ RETAKE DATE:</div>
     <div class="smallerTable">
     <form id="date" name="date" action="{{ path('ubb_iss_add_student_grades', {'line':line, 'SubName':SubName, 'SpecName':SpecName ,'Group':Group} ) }}" method="post">
         <div>

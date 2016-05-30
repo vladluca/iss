@@ -15,7 +15,7 @@
         }
         var images = ["http://www.ibackgroundwallpaper.com/wp-content/uploads/2015/05/new-york-sunset-on-water.jpg",
             "http://www.ibackgroundwallpaper.com/wp-content/uploads/2014/03/Milky-Way-Galaxy-Wallpaper.jpg",
-                "http://wallpapercave.com/wp/IkN04WE.jpg"
+            "http://wallpapercave.com/wp/IkN04WE.jpg"
         ];
 
         var index = Math.floor((Math.random() * 3) + 0);
@@ -29,20 +29,19 @@
 
          {% if( app.user.teacher == null) %}
             <div class="jumbotron">
-               <div class="initText">
+                <div class="initText">
 
               <div class="labels">Name:</div>
                  {{ app.user.student.name }}
+                    <br>
+                    <div class="labels">CNP:</div>
+                    {{ app.user.student.cnp }}
               <br>
               <div class="labels">Email:</div>
                   {{ app.user.student.email }}
               <br>
               <div class="labels">Address:</div>
                   {{ app.user.student.address }}
-              <br>
-              <div class="labels">CNP:</div>
-                   {{ app.user.student.cnp }}
-
 
                 <div class="bottomText">Vita sine litteris mort est.</div>
            </div>

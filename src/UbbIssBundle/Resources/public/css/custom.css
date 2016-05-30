@@ -38,7 +38,7 @@
 
 .jumbotron {
     position: relative;
-    background: url("http://wallpapercave.com/wp/wdmbAVf.jpg") center center;
+    background: url("http://wallpapercave.com/wp/zuiHX0K.jpg") center center;
     width: 100%;
     height: 900px;
     background-size: cover;
@@ -47,8 +47,7 @@
 
 .jumbotron1 {
     position: relative;
-    background: url("http://www.ibackgroundwallpaper.com/wp-content/uploads/2014/03/Milky-Way-Galaxy-Wallpaper.jpg"
-    ) center center;
+    background: url("http://www.ibackgroundwallpaper.com/wp-content/uploads/2014/03/Milky-Way-Galaxy-Wallpaper.jpg") center center;
     width: 100%;
     height: 900px;
     background-size: cover;
@@ -57,7 +56,8 @@
 
 .initText{
     margin-top: 30px;
-    text-align: center;
+    text-align: left;
+    margin-left: 100px;
     font-family: Georgia, "Times New Roman", Times, serif;
     font-size: 25px;
     font-weight: bold;
