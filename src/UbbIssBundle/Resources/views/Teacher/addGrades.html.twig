@@ -10,9 +10,7 @@
 
 {% block content %}
     <div>
-        <br>
-        </br>
-        <div class="titles">Add Grades</div>
+        <div class="otherText" style="font-style:italic">Add Grades</div>
         <div class="tableText">SET GRADES:</div>
         <br>
         <br>
@@ -20,9 +18,10 @@
         {#{{ subject.getName() }}#}
         {#<div class="table table-bordered">#}
             {% if students|length >0 %}
+                <div class="smallerTable">
                 <table class="table table-bordered">
                     <tr>
-                        <thead class="insideText">
+                        <thead class="backgr">
                             <th><div class="tableText">Name</div></th>
                             <th><div class="tableText">Grade</div></th>
                             <th><div class="tableText">Retake Grade</div></th>
@@ -77,8 +76,9 @@
                         </tbody>
                     </tr>
                 </table>
+                </div>
             {% else %}
-                <p>NOTHING TO SHOW</p>
+                <div class="otherText" style="font-style:italic">NOTHING TO SHOW</div>
             {% endif %}
         {#</div>#}
     </div>
