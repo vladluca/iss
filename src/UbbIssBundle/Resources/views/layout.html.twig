@@ -53,17 +53,17 @@
 
                         {% if app.user.teacher.rank == "SefDepartament" %}
                             <li>
-                                <a href="{{ path("assign_activities") }}">Assign activities</a>
+                                <a href="{{ path("assign_activities") }}">Assign Activities</a>
                             </li>
                             <li>
-                                <a href="{{ path("propose_optionals") }}">Propose optionals</a>
+                                <a href="{{ path("propose_optionals") }}">Propose Optionals</a>
                             </li>
 
                         {% endif %}
 
                         {% if app.user.teacher.rank == "Lector" %}
                             <li>
-                                <a href="{{ path("propose_optionals") }}">Propose optionals</a>
+                                <a href="{{ path("propose_optionals") }}">Propose Optionals</a>
                             </li>
 
                         {% endif %}
@@ -71,7 +71,7 @@
                         <li>
                             <a href="{{ path("ubb_iss_show_teacher_activities") }}">Add Grades</a>
                             <li>
-                                <a href="{{ path("students_top") }}">Top 5 students</a>
+                                <a href="{{ path("students_top") }}">Top 5 Students</a>
                             </li>
                             <li>
                                 <a href="{{ path("ubb_iss_change_pass") }}">Change Password</a>
