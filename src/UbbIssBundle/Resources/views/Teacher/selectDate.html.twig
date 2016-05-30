@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block content %}
+    <div class="smallerTable">
     <form id="date" name="date" action="{{ path('ubb_iss_add_student_grades', {'line':line, 'SubName':SubName, 'SpecName':SpecName ,'Group':Group} ) }}" method="post">
         <div>
             <input id="line_id" name="line_id" type="hidden" value="{{ line }}" /> <br>
@@ -19,4 +20,5 @@
             <input id="submit" name="submit" type="submit" /> <br>
         </div>
     </form>
+    </div>
 {% endblock %}
