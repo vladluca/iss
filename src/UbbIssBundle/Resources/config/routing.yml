@@ -91,3 +91,8 @@ show_optional_choices:
     path: /show_optional_choices
     defaults: {_controller: UbbIssBundle:Default:showOptionalChoices}
 
+
+assign_optional_groups:
+    path: /assign_optional_groups
+    defaults: {_controller: UbbIssBundle:Default:assignOptionalGroups}
+

@@ -1,0 +1,91 @@
+{% extends "UbbIssBundle:layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/ubbiss/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" xmlns:5>
+    <link href="{{ asset('bundles/ubbiss/css/custom.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('bundles/ubbiss/css/full.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+    <div>
+        <div class="otherText" style="font-style:italic">Optional Groups</div>
+        <div class="tableText">ASSIGN EACH OPTIONAL PROPOSED BY A TEACHER IN YOUR DEPARTMENT TO A GROUP:</div>
+        <br>
+        <br>
+
+
+        <div class="tableText">SEMESTER 5:</div>
+        <br>
+        {% if optionalsSem1|length > 0 %}
+            <div class="smallerTable">
+                <table class="table table-bordered">
+                    <tr>
+                        <thead class="backgr">
+                        <th><div class="tableText">Name</div></th>
+                        <th><div class="tableText">Group</div></th>
+                        </thead>
+                    </tr>
+
+                    <tr>
+                        <tbody class="insideText">
+                        {% for i in 0 .. optionalsSem1|length - 1 %}
+                                </tr>
+                                <tr>
+                                    <td><div class="tableValue"></div>{{ optionalsSem1[i].getName() }}</td>
+                                    <td>
+                                        <div class="tableValue"></div>
+                                        <form id ="editGroups" name="editGroups" action="{{ path('assign_optional_groups') }}" method="post">
+                                            <input name="subjectId" type="hidden" value={{ optionalsSem1[i].getId() }} >
+                                            <input name="group" type="number" id="group" min="1" max="2" />
+                                            <button type="submit" >Edit group</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                        {% endfor %}
+                        </tbody>
+                    </tr>
+                </table>
+            </div>
+        {% endif %}
+
+
+
+
+        <div class="tableText">SEMESTER 6:</div>
+        <br>
+        {% if optionalsSem2|length > 0 %}
+            <div class="smallerTable">
+                <table class="table table-bordered">
+                    <tr>
+                        <thead class="backgr">
+                        <th><div class="tableText">Name</div></th>
+                        <th><div class="tableText">Group</div></th>
+                        </thead>
+                    </tr>
+
+                    <tr>
+                        <tbody class="insideText">
+                        {% for i in 0 .. optionalsSem2|length - 1 %}
+                            </tr>
+                            <tr>
+                                <td><div class="tableValue"></div>{{ optionalsSem2[i].getName() }}</td>
+                                <td>
+                                    <div class="tableValue"></div>
+                                    <form id ="editGroups" name="editGroups" action="{{ path('assign_optional_groups') }}" method="post">
+                                        <input name="subjectId2" type="hidden" value={{ optionalsSem2[i].getId() }} >
+                                        <input name="group2" type="number" id="group" min="3" max="5" />
+                                        <button type="submit" >Edit group</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </tr>
+                </table>
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}
