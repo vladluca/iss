@@ -299,6 +299,11 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        $authenticatedUser= $this->getUser();
+        $student = $authenticatedUser->getStudent();
+        $specId = $student->getSpecialization();
+        $studLineId = $student->getStudyline();
+
         $contractsRepo = $em->getRepository('UbbIssBundle:Studycontract');
         $subjRepo = $em->getRepository('UbbIssBundle:Subject');
 
@@ -314,7 +319,7 @@ class DefaultController extends Controller
 
         $addedSubjects1 = $contract1->getSubjects();
         $availableSubj1 = $subjRepo->findBy(
-            array('semester' => $contract1->getSemester())
+            array('semester' => $contract1->getSemester(), 'specialization' => $specId, 'studyline' => $studLineId)
         );
 
         $availables1=[];
@@ -328,18 +333,18 @@ class DefaultController extends Controller
 
         $addedSubjects2 = $contract2->getSubjects();
         $availableSubj2 = $subjRepo->findBy(
-            array('semester' => $contract2->getSemester())
+            array('semester' => $contract2->getSemester(), 'specialization' => $specId, 'studyline' => $studLineId)
         );
 
         $availables2=[];
         foreach($addedSubjects2 as $adds){
-            if($adds->getOptional() == "yes") {
+//            if($adds->getOptional() == "yes") {
                 array_push($availables2, $adds);
-            }
+//            }
         }
 
-//        $result2 = array_diff($availableSubj2,$availables2);
-//        $result2 = array_values($result2);
+        $result2 = array_diff($availableSubj2,$availables2);
+        $result2 = array_values($result2);
 
 
         return $this->render('UbbIssBundle:Student:editStudyContracts.html.twig',
@@ -352,7 +357,7 @@ class DefaultController extends Controller
                 'contractId1' => $contract1->getId(),
 
                 'addedSubj2' => $addedSubjects2,
-                'availableSubj2' => $availables2,
+                'availableSubj2' => $result2,
                 'contractId2' => $contract2->getId()
 
             ));
@@ -539,7 +544,6 @@ class DefaultController extends Controller
         $currentDep = $sefdepartament->getDepartment();
 
         $teachers = $em->getRepository('UbbIssBundle:Teacher')->findBy(array('department' => $currentDep));
-
 
         $subjecs = $em->getRepository('UbbIssBundle:Subject')->findBy(array('department' => $currentDep));
 
@@ -769,6 +773,40 @@ class DefaultController extends Controller
 
 
         return $this->showOptionalChoicesAction();
+    }
+
+    public function assignOptionalGroupsAction(Request $request) {
+        $authenticatedUser= $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $sefdepartament = $authenticatedUser->getTeacher();
+        $currentDep = $sefdepartament->getDepartment();
+
+        $optionalsSem1 = $em->getRepository('UbbIssBundle:Subject')->findBy(array('department' => $currentDep, 'semester' => 5, 'optional' => "yes"));
+        $newGroup = $request->request->get('group');
+        $subjectId = $request->request->get('subjectId');
+        $sbj = $em->getRepository('UbbIssBundle:Subject')->findOneBy(array('id' => $subjectId));
+        if($sbj != null) {
+            $sbj->setOptionalGroup((int)$newGroup);
+            $em->flush();
+        }
+
+
+        $optionalsSem2 = $em->getRepository('UbbIssBundle:Subject')->findBy(array('department' => $currentDep, 'semester' => 6, 'optional' => "yes"));
+        $newGroup2 = $request->request->get('group2');
+        $subjectId2 = $request->request->get('subjectId2');
+        $sbj = $em->getRepository('UbbIssBundle:Subject')->findOneBy(array('id' => $subjectId2));
+        if($sbj != null) {
+            $sbj->setOptionalGroup((int)$newGroup2);
+            $em->flush();
+        }
+
+
+
+        return $this->render('UbbIssBundle:Teacher:assignOptionalGroups.html.twig',
+            array(
+                'optionalsSem1' => $optionalsSem1,
+                'optionalsSem2' => $optionalsSem2
+            ));
     }
 
 }

@@ -35,6 +35,7 @@
                     <th><div class="tableText">Name</div></th>
                     <th><div class="tableText">Credits</div></th>
                     <th><div class="tableText">Editing</div></th>
+                    <th><div class="tableText">Optional group</div></th>
                     </thead>
                 </tr>
 
@@ -62,6 +63,9 @@
                                     <button type="submit" >Remove subject</button>
                                 </form>
                             </td>
+                            {% if(addedSubj1[i].getOptional() == "yes")  %}
+                                <td><div class="tableValue"></div>{{ addedSubj1[i].getOptionalGroup() }}</td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -80,6 +84,7 @@
                     <th><div class="tableText">Name</div></th>
                     <th><div class="tableText">Credits</div></th>
                     <th><div class="tableText">Editing</div></th>
+                    <th><div class="tableText">Optional group</div></th>
                     </thead>
                 </tr>
                 <tr>
@@ -99,6 +104,9 @@
                                     <button type="submit" >Add subject</button>
                                 </form>
                             </td>
+                            {% if(availableSubj1[i].getOptional() == "yes")  %}
+                                <td><div class="tableValue"></div>{{ availableSubj1[i].getOptionalGroup() }}</td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -125,6 +133,7 @@
                     <th><div class="tableText">Name</div></th>
                     <th><div class="tableText">Credits</div></th>
                     <th><div class="tableText">Editing</div></th>
+                    <th><div class="tableText">Optional group</div></th>
                     </thead>
                 </tr>
                 <tr>
@@ -147,6 +156,9 @@
                                     <button type="submit" >Remove subject</button>
                                 </form>
                             </td>
+                            {% if(addedSubj2[i].getOptional() == "yes")  %}
+                                <td><div class="tableValue"></div>{{ addedSubj2[i].getOptionalGroup() }}</td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -164,6 +176,7 @@
                     <th><div class="tableText">Name</div></th>
                     <th><div class="tableText">Credits</div></th>
                     <th><div class="tableText">Editing</div></th>
+                    <th><div class="tableText">Optional group</div></th>
                     </thead>
                 </tr>
                 <tr>
@@ -183,6 +196,9 @@
                                     <button type="submit" >Add subject</button>
                                 </form>
                             </td>
+                            {% if(availableSubj2[i].getOptional() == "yes")  %}
+                                <td><div class="tableValue"></div>{{ availableSubj2[i].getOptionalGroup() }}</td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -200,6 +216,8 @@
         You must have a minumum number of credits.
         For finding the minumum number of credits,
         please ask the secretary of your faculty.
+        If you have to choose optionals, the rule is
+        ONLY ONE OPTIONAL FROM EACH OPTIONAL GROUP.
     </div>
 
 
